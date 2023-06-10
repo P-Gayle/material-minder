@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react'
+import axios from 'axios'
 
 const AddSupplies = () => {
 
@@ -16,6 +17,7 @@ const AddSupplies = () => {
   //to prevent refresh when submitted
   const handleSubmit = (event) => {
     event.preventDefault();
+    axios.post ('http://localhost:80/material-minder/api/supplies/save', inputs)
     console.log(inputs);
   }
 
