@@ -2,11 +2,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const AddSupplies = () => {
 
   const [inputs, setInputs] = useState({})
+  const navigate = useNavigate()
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -17,8 +19,11 @@ const AddSupplies = () => {
   //to prevent refresh when submitted
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post ('http://localhost:80/material-minder/api/supplies/save', inputs)
-    console.log(inputs);
+    axios.post('http://localhost:80/material-minder/api/supplies/save', inputs)
+      .then(function (response) {
+        console.log(response.data);
+        navigate('/')
+    }) 
   }
 
   return (
@@ -34,8 +39,8 @@ const AddSupplies = () => {
           <Form.Group>
               <Form.Label>Product name:</Form.Label>
             <Form.Control
-              type="text"
-              name="name"
+                type="text"
+                name="name"
                 placeholder="Enter the Product name"
                 onChange={handleChange} />
           </Form.Group>
@@ -45,34 +50,45 @@ const AddSupplies = () => {
             <Form.Control type="text" 
               name="type"
               placeholder="Enter the product type"
-            onChange={handleChange}/>
+              onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
               <Form.Label>Product colour:</Form.Label>
-            <Form.Control type="text" name="colour" placeholder="Enter the product colour"
-            onChange={handleChange}/>
+            <Form.Control
+              type="text"
+              name="colour"
+              placeholder="Enter the product colour"
+              onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
               <Form.Label>Product quantity:</Form.Label>
-            <Form.Control type="number" name="quantity" placeholder="Enter the quantity available"
-            onChange={handleChange}/>
+            <Form.Control
+              type="number"
+              name="quantity"
+              placeholder="Enter the quantity available"
+              onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
               <Form.Label>Product Location:</Form.Label>
-            <Form.Control type="text" name="location" placeholder="Enter the product's location"
-            onChange={handleChange}/>
+            <Form.Control
+              type="text"
+              name="location"
+              placeholder="Enter the product's location"
+              onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
               <Form.Label>Product Supplier:</Form.Label>
-            <Form.Control type="text" name="supplier" placeholder="Enter the product's supplier"
-            onChange={handleChange}/>
+            <Form.Control
+              type="text"
+              name="supplier"
+              placeholder="Enter the product's supplier"
+              onChange={handleChange}/>
           </Form.Group>
           
-
           <Button variant="primary" type="submit">
             Save
           </Button>

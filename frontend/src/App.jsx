@@ -15,11 +15,9 @@ function App() {
           <Routes>
             <Route path="/" element={<SuppliesList />} />
             <Route path="/add" element={<AddSupplies />} />
-            <Route path="/:id/edit" element={<EditSupplies/>}/>
+            <Route path="/supply/:id/edit" element={<EditSupplies/>}/>
           </Routes>
-        </BrowserRouter>
-        
-
+        </BrowserRouter>      
       </div>
     </>
   )
