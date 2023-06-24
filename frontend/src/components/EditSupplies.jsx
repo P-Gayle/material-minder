@@ -13,16 +13,17 @@ function EditSupplies() {
   const {id} = useParams()
   
   useEffect(() => {
-    // getUsers()
-      axios.get(`http://localhost:80/material-minder/api/supply/${id}`)
-      .then(response => {
-        console.log(response.data);
+    const fetchSupply = async () => {
+      try {
+        const response = await axios.get(`http://localhost:80/material-minder/api/supply/${id}`)
+        console.log(response.data)
         setInputs(response.data);
-
-      })
-      .catch(error => {
-      console.log(error)
-    })
+      } catch (error) {
+      console.error(error);
+      throw new Error('Failed to get this supply product');
+      }
+    }
+    fetchSupply();
   }, [])
 
   const handleChange = (event) => {
@@ -31,15 +32,16 @@ function EditSupplies() {
     setInputs(values => ({...values, [name]: value}))
   }
 
-  //to prevent refresh when submitted
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    axios.put(`http://localhost:80/material-minder/api/supply/${id}/edit`, inputs)
-      .then(function (response) {
-        console.log(response.data);
-        navigate('/')
-    }) 
+    try {
+      const response = await axios.put(`http://localhost:80/material-minder/api/supply/${id}/edit`, inputs)
+      console.log(response.data)
+      navigate('/')
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to edit the supply product');
+    }
   }
 
   return (

@@ -16,14 +16,17 @@ const AddSupplies = () => {
     setInputs(values => ({...values, [name]: value}))
   }
 
-  //to prevent refresh when submitted
-  const handleSubmit = (event) => {
+   const handleSubmit = async (event) => {
     event.preventDefault();
-    axios.post('http://localhost:80/material-minder/api/supplies/save', inputs)
-      .then(function (response) {
-        console.log(response.data);
-        navigate('/')
-    }) 
+    
+    try {
+      const response = await axios.post('http://localhost:80/material-minder/api/supplies/save', inputs)
+      console.log(response.data)
+      navigate('/')
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to add a supply product');
+    }
   }
 
   return (
@@ -94,7 +97,6 @@ const AddSupplies = () => {
           </Button>
         </Form>
       </div>
-
     </div>
   )
 }

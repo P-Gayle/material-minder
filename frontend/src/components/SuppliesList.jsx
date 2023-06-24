@@ -8,23 +8,24 @@ const SuppliesList = () => {
 
   const [supplies, setSupplies] = useState([])
 
-  const getSupplies = () => {
-   axios.get('http://localhost:80/material-minder/api/supplies/')
-      .then(response => {
+  const getSupplies = async () => {
+    const response = await axios.get('http://localhost:80/material-minder/api/supplies/')
+    try {
         console.log(response.data);
         setSupplies(response.data);
-      })
-      .catch(error => {
-      console.log(error)
-      })
-      }
+        } catch (error) {
+          console.error(error);
+          throw new Error('Failed to get supplies');
+        }  
+    }
  
   useEffect(() => {
     getSupplies()   
   }, [])
 
   const deleteSupply = (id) => {
-    axios.delete(`http://localhost:80/material-minder/api/supply/${id}/delete`).then(function(response){
+    axios.delete(`http://localhost:80/material-minder/api/supply/${id}/delete`)
+      .then(function (response) {
       console.log(response.data)
       getSupplies()
     })
