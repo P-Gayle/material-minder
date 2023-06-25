@@ -49,7 +49,7 @@ const AddSupplies = () => {
           </Form.Group>
 
            <Form.Group>
-              <Form.Label>Product Per Unit:</Form.Label>
+              <Form.Label>Price Per Unit:</Form.Label>
             <Form.Control
                 type="number"
                 name="price"
@@ -74,15 +74,6 @@ const AddSupplies = () => {
               onChange={handleChange}/>
           </Form.Group>
 
-          {/* <Form.Group>
-              <Form.Label>Product quantity:</Form.Label>
-            <Form.Control
-              type="number"
-              name="quantity"
-              placeholder="Enter the quantity available"
-              onChange={handleChange}/>
-          </Form.Group> */}
-
           <Form.Group>
               <Form.Label>quantity purchased:</Form.Label>
             <Form.Control
@@ -91,15 +82,6 @@ const AddSupplies = () => {
               placeholder="Enter the quantity available"
               onChange={handleChange}/>
           </Form.Group>
-
-          {/* <Form.Group>
-              <Form.Label>quantity used:</Form.Label>
-            <Form.Control
-              type="number"
-              name="total_used"
-              placeholder="Enter 0"
-              onChange={handleChange}/>
-          </Form.Group> */}
 
           <Form.Group>
               <Form.Label>Product Location:</Form.Label>

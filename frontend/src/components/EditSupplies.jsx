@@ -64,7 +64,7 @@ function EditSupplies() {
           </Form.Group>
 
           <Form.Group>
-              <Form.Label>Product Per Unit:</Form.Label>
+              <Form.Label>Price Per Unit:</Form.Label>
             <Form.Control
                 value={inputs.price}
                 type="number"
@@ -87,15 +87,6 @@ function EditSupplies() {
               value={inputs.colour}
               type="text"
               name="colour"
-              onChange={handleChange}/>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Product quantity:</Form.Label>
-            <Form.Control
-              value={inputs.quantity}
-              type="number"
-              name="quantity"
               onChange={handleChange}/>
           </Form.Group>
 
