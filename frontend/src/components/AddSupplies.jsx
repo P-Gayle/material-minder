@@ -59,10 +59,19 @@ const AddSupplies = () => {
           
           <Form.Group>
               <Form.Label>Product type:</Form.Label>
-            <Form.Control type="text" 
+            <Form.Control
               name="type"
-              placeholder="Enter the product type"
-              onChange={handleChange}/>
+              as="select"
+              custom
+              // placeholder="Enter the product type"
+              onChange={handleChange}>
+              <option value="fabric">Fabric</option>
+              <option value="thread">Thread</option>
+              <option value="elastic">Elastic</option>
+              <option value="poppers">Poppers</option>
+              <option value="hook_and_eye">Hook and Eyes</option>  
+              <option value="zip">Zip</option>
+              </Form.Control>
           </Form.Group>
 
           <Form.Group>
