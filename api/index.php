@@ -40,8 +40,8 @@ switch ($method) {
     case "POST":
         $item = json_decode(file_get_contents('php://input'));
         $sql =
-        "INSERT INTO supplies(id, name, price, type, quantity, location, colour, supplier, created_at)
-        VALUES(null, :name, :price, :type, :quantity, :location, :colour, :supplier, :created_at)";
+        "INSERT INTO supplies(id, name, price, type, quantity, location, colour, supplier, total_purchased, created_at)
+        VALUES(null, :name, :price, :type, :quantity, :location, :colour, :supplier, :total_purchased, :created_at)";
         $stmt = $conn->prepare($sql);
         $created_at = date('Y-m-d');
         //the below statements won't work unless json_decode $item above
@@ -52,6 +52,8 @@ switch ($method) {
         $stmt->bindParam(':location', $item->location);
         $stmt->bindParam(':colour', $item->colour);
         $stmt->bindParam(':supplier', $item->supplier);
+        $stmt->bindParam(':total_purchased', $item->total_purchased);
+        // $stmt->bindParam(':total_used', $item->total_used);
         $stmt->bindParam(':created_at', $created_at);
 
         if($stmt->execute()){

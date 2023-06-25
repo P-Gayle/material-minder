@@ -44,6 +44,7 @@ const SuppliesList = () => {
               <th>Item Type</th> 
               <th>Colour</th>
               <th>Amount Available</th>
+              {/* <th>THIS Amount Available</th> */}
               <th>Storage Location</th>
               <th>Supplier</th> 
               <th>Actions</th>        
@@ -57,7 +58,8 @@ const SuppliesList = () => {
                 <td>{supply.price}</td>
                 <td>{supply.type}</td>
                 <td>{supply.colour}</td>
-                <td>{supply.quantity}</td>
+                <td>{supply.total_purchased-supply.total_used}</td>
+                {/* <td>{supply.total_purchased}</td> */}
                 <td>{supply.location}</td>
                 <td>{supply.supplier}</td>
                 <td>

@@ -74,14 +74,32 @@ const AddSupplies = () => {
               onChange={handleChange}/>
           </Form.Group>
 
-          <Form.Group>
+          {/* <Form.Group>
               <Form.Label>Product quantity:</Form.Label>
             <Form.Control
               type="number"
               name="quantity"
               placeholder="Enter the quantity available"
               onChange={handleChange}/>
+          </Form.Group> */}
+
+          <Form.Group>
+              <Form.Label>quantity purchased:</Form.Label>
+            <Form.Control
+              type="number"
+              name="total_purchased"
+              placeholder="Enter the quantity available"
+              onChange={handleChange}/>
           </Form.Group>
+
+          {/* <Form.Group>
+              <Form.Label>quantity used:</Form.Label>
+            <Form.Control
+              type="number"
+              name="total_used"
+              placeholder="Enter 0"
+              onChange={handleChange}/>
+          </Form.Group> */}
 
           <Form.Group>
               <Form.Label>Product Location:</Form.Label>
