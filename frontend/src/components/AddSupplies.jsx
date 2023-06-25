@@ -47,6 +47,15 @@ const AddSupplies = () => {
                 placeholder="Enter the Product name"
                 onChange={handleChange} />
           </Form.Group>
+
+           <Form.Group>
+              <Form.Label>Product Per Unit:</Form.Label>
+            <Form.Control
+                type="number"
+                name="price"
+                placeholder="Enter the Product price per unit"
+                onChange={handleChange} />
+          </Form.Group>
           
           <Form.Group>
               <Form.Label>Product type:</Form.Label>

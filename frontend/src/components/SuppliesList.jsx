@@ -34,25 +34,27 @@ const SuppliesList = () => {
   return (
     <div>
       <h1>Supplies List</h1>  
-       <div className='p-5'>  
-  <Table striped bordered hover>  
-  <thead>  
-    <tr>  
-      <th>#</th>  
-      <th>Item Name</th>  
-      <th>Item Type</th> 
-      <th>Colour</th>
-      <th>Amount Available</th>
-      <th>Storage Location</th>
-      <th>Supplier</th> 
-      <th>Actions</th>        
-    </tr>  
-  </thead>  
+      <div className='p-5'>  
+        <Table striped bordered hover>  
+          <thead>  
+            <tr>  
+              <th>#</th>  
+              <th>Item Name</th>
+              <th>Price per unit</th>
+              <th>Item Type</th> 
+              <th>Colour</th>
+              <th>Amount Available</th>
+              <th>Storage Location</th>
+              <th>Supplier</th> 
+              <th>Actions</th>        
+            </tr>  
+          </thead>  
           <tbody>  
             {supplies.map((supply, key) => 
               <tr key={key}>
                 <td>{supply.id}</td>
                 <td>{supply.name}</td>
+                <td>{supply.price}</td>
                 <td>{supply.type}</td>
                 <td>{supply.colour}</td>
                 <td>{supply.quantity}</td>
@@ -65,9 +67,9 @@ const SuppliesList = () => {
               </tr>
             )} 
           </tbody>  
-  </Table>  
+        </Table>  
       </div>
-      </div>
+    </div>
   )
 }
 

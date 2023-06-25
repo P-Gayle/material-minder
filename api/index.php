@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-//to fix the cors issue
+//to fix the cors issue-when making requests from different domains
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-headers: *");
 header("Access-Control-Allow-Methods: *");
@@ -40,12 +40,13 @@ switch ($method) {
     case "POST":
         $item = json_decode(file_get_contents('php://input'));
         $sql =
-        "INSERT INTO supplies(id, name, type, quantity, location, colour, supplier, created_at)
-        VALUES(null, :name, :type, :quantity, :location, :colour, :supplier, :created_at)";
+        "INSERT INTO supplies(id, name, price, type, quantity, location, colour, supplier, created_at)
+        VALUES(null, :name, :price, :type, :quantity, :location, :colour, :supplier, :created_at)";
         $stmt = $conn->prepare($sql);
         $created_at = date('Y-m-d');
         //the below statements won't work unless json_decode $item above
         $stmt->bindParam(':name', $item->name);
+        $stmt->bindParam(':price', $item->price);
         $stmt->bindParam(':type', $item->type);
         $stmt->bindParam(':quantity', $item->quantity);
         $stmt->bindParam(':location', $item->location);
@@ -64,12 +65,13 @@ switch ($method) {
     case "PUT":
         $item = json_decode(file_get_contents('php://input'));
         $sql =
-            "UPDATE supplies SET name=:name, type=:type, quantity=:quantity, location=:location, colour=:colour, supplier=:supplier, updated_at=:updated_at WHERE id = :id";
+            "UPDATE supplies SET name=:name, price=:price, type=:type, quantity=:quantity, location=:location, colour=:colour, supplier=:supplier, updated_at=:updated_at WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $updated_at = date('Y-m-d');
 
         $stmt->bindParam(':id', $item->id);
         $stmt->bindParam(':name', $item->name);
+        $stmt->bindParam(':price', $item->price);
         $stmt->bindParam(':type', $item->type);
         $stmt->bindParam(':quantity', $item->quantity);
         $stmt->bindParam(':location', $item->location);

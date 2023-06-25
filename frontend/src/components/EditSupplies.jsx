@@ -55,16 +55,25 @@ function EditSupplies() {
         <Form onSubmit={handleSubmit}>
           
           <Form.Group>
-              <Form.Label>Product name:</Form.Label>
+            <Form.Label>Product name:</Form.Label>
             <Form.Control
               value={inputs.name}
               type="text"
               name="name"
               onChange={handleChange} />
           </Form.Group>
+
+          <Form.Group>
+              <Form.Label>Product Per Unit:</Form.Label>
+            <Form.Control
+                value={inputs.price}
+                type="number"
+                name="price"
+                onChange={handleChange} />
+          </Form.Group>
           
           <Form.Group>
-              <Form.Label>Product type:</Form.Label>
+            <Form.Label>Product type:</Form.Label>
             <Form.Control
               value={inputs.type}
               type="text" 
@@ -73,7 +82,7 @@ function EditSupplies() {
           </Form.Group>
 
           <Form.Group>
-              <Form.Label>Product colour:</Form.Label>
+            <Form.Label>Product colour:</Form.Label>
             <Form.Control
               value={inputs.colour}
               type="text"
@@ -82,7 +91,7 @@ function EditSupplies() {
           </Form.Group>
 
           <Form.Group>
-              <Form.Label>Product quantity:</Form.Label>
+            <Form.Label>Product quantity:</Form.Label>
             <Form.Control
               value={inputs.quantity}
               type="number"
@@ -91,7 +100,7 @@ function EditSupplies() {
           </Form.Group>
 
           <Form.Group>
-              <Form.Label>Product Location:</Form.Label>
+            <Form.Label>Product Location:</Form.Label>
             <Form.Control
               value={inputs.location}
               type="text"
@@ -100,7 +109,7 @@ function EditSupplies() {
           </Form.Group>
 
           <Form.Group>
-              <Form.Label>Product Supplier:</Form.Label>
+            <Form.Label>Product Supplier:</Form.Label>
             <Form.Control
               value={inputs.supplier}
               type="text"
