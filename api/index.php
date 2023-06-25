@@ -65,7 +65,7 @@ switch ($method) {
     case "PUT":
         $item = json_decode(file_get_contents('php://input'));
         $sql =
-            "UPDATE supplies SET name=:name, price=:price, type=:type, quantity=:quantity, location=:location, colour=:colour, supplier=:supplier, updated_at=:updated_at WHERE id = :id";
+        "UPDATE supplies SET name=:name, price=:price, type=:type, quantity=:quantity, location=:location, colour=:colour, supplier=:supplier, updated_at=:updated_at WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $updated_at = date('Y-m-d');
 
@@ -77,6 +77,8 @@ switch ($method) {
         $stmt->bindParam(':location', $item->location);
         $stmt->bindParam(':colour', $item->colour);
         $stmt->bindParam(':supplier', $item->supplier);
+        // $stmt->bindParam(':total_purchased', $item->total_purchased);
+        // $stmt->bindParam(':total_used', $item->total_used);
         $stmt->bindParam(':updated_at', $updated_at);
 
         if ($stmt->execute()) {
@@ -84,6 +86,34 @@ switch ($method) {
         } else {
             $response = ['status' => 0, 'message' => 'Failed to update record'];
         }
+
+        // Accumulate the total_purchased and total_used fields
+        if ($response['status'] == 1) {
+            $selectSql = "SELECT total_purchased, total_used FROM supplies WHERE id = :id";
+            $selectStmt = $conn->prepare($selectSql);
+            $selectStmt->bindParam(':id', $item->id);
+            $selectStmt->execute();
+            $supplyData = $selectStmt->fetch(PDO::FETCH_ASSOC);
+
+            $totalPurchased = $supplyData['total_purchased'];
+            $totalUsed = $supplyData['total_used'];
+
+            $totalPurchased += $item->total_purchased;
+            $totalUsed += $item->total_used;
+
+            $updateAccumulatedSql = "UPDATE supplies SET total_purchased = :total_purchased, total_used = :total_used WHERE id = :id";
+            $updateAccumulatedStmt = $conn->prepare($updateAccumulatedSql);
+            $updateAccumulatedStmt->bindParam(':total_purchased', $totalPurchased);
+            $updateAccumulatedStmt->bindParam(':total_used', $totalUsed);
+            $updateAccumulatedStmt->bindParam(':id', $item->id);
+
+            if ($updateAccumulatedStmt->execute()) {
+                $response = ['status' => 1, 'message' => 'Record updated successfully'];
+            } else {
+                $response = ['status' => 0, 'message' => 'Failed to update record'];
+            }
+        }
+
         echo json_encode($response);
         break;
 

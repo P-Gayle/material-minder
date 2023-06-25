@@ -62,6 +62,7 @@ const SuppliesList = () => {
                 <td>{supply.supplier}</td>
                 <td>
                   <Link to={`/supply/${supply.id}/edit`}> Edit</Link>
+                   <Link to={`/supply/${supply.id}/quantity`}> Update quantity</Link>
                   <button onClick={() => deleteSupply(supply.id)}>Delete</button>
                 </td>
               </tr>
