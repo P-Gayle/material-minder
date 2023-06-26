@@ -55,7 +55,8 @@ const SuppliesList = () => {
             {supplies.map((supply, key) => 
               <tr key={key}>
                 <td>{supply.id}</td>
-                  <img src={`http://localhost:80/material-minder/api/${supply.image}`} alt="item image" style={{ width: '50px' }} />
+                {supply.image ?
+                  (<td><img src={`http://localhost:80/material-minder/api/${supply.image}`} alt="item image" style={{ width: '50px' }} /></td>) : (<td>No image</td>)}
                 <td>{supply.name}</td>
                 <td>{supply.price}</td>
                 <td>{supply.size}</td>
