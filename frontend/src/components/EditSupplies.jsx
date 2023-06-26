@@ -68,7 +68,18 @@ function EditSupplies() {
             <Form.Control
                 value={inputs.price}
                 type="number"
+                step="any"
                 name="price"
+                onChange={handleChange} />
+          </Form.Group>
+
+           <Form.Group>
+              <Form.Label>Size:</Form.Label>
+            <Form.Control
+              value={inputs.size}
+                type="text"
+                step="any"
+                name="size"
                 onChange={handleChange} />
           </Form.Group>
           

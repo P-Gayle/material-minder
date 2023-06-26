@@ -41,6 +41,7 @@ const SuppliesList = () => {
               <th>#</th>  
               <th>Item Name</th>
               <th>Price per unit</th>
+              <th>Size</th>
               <th>Item Type</th> 
               <th>Colour</th>
               <th>Amount Available</th>
@@ -55,6 +56,7 @@ const SuppliesList = () => {
                 <td>{supply.id}</td>
                 <td>{supply.name}</td>
                 <td>{supply.price}</td>
+                <td>{supply.size}</td>
                 <td>{supply.type}</td>
                 <td>{supply.colour}</td>
                 <td>{supply.total_purchased-supply.total_used}</td>

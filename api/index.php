@@ -40,13 +40,14 @@ switch ($method) {
     case "POST":
         $item = json_decode(file_get_contents('php://input'));
         $sql =
-        "INSERT INTO supplies(id, name, price, type, location, colour, supplier, total_purchased, created_at)
-        VALUES(null, :name, :price, :type, :location, :colour, :supplier, :total_purchased, :created_at)";
+        "INSERT INTO supplies(id, name, price, size, type, location, colour, supplier, total_purchased, created_at)
+        VALUES(null, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at)";
         $stmt = $conn->prepare($sql);
         $created_at = date('Y-m-d');
         //the below statements won't work unless json_decode $item above
         $stmt->bindParam(':name', $item->name);
         $stmt->bindParam(':price', $item->price);
+        $stmt->bindParam(':size', $item->size);
         $stmt->bindParam(':type', $item->type);
         $stmt->bindParam(':location', $item->location);
         $stmt->bindParam(':colour', $item->colour);
@@ -65,13 +66,14 @@ switch ($method) {
     case "PUT":
         $item = json_decode(file_get_contents('php://input'));
         $sql =
-        "UPDATE supplies SET name=:name, price=:price, type=:type, location=:location, colour=:colour, supplier=:supplier, updated_at=:updated_at WHERE id = :id";
+        "UPDATE supplies SET name=:name, price=:price, size=:size, type=:type, location=:location, colour=:colour, supplier=:supplier, updated_at=:updated_at WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $updated_at = date('Y-m-d');
 
         $stmt->bindParam(':id', $item->id);
         $stmt->bindParam(':name', $item->name);
         $stmt->bindParam(':price', $item->price);
+        $stmt->bindParam(':size', $item->size);
         $stmt->bindParam(':type', $item->type);
         $stmt->bindParam(':location', $item->location);
         $stmt->bindParam(':colour', $item->colour);
