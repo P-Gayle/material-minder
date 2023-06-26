@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';  
-import { Table } from 'react-bootstrap';  
+import { Table, Form } from 'react-bootstrap';  
 import { Link } from "react-router-dom";
+
 
 const SuppliesList = () => {
 
   const [supplies, setSupplies] = useState([])
+  const [filteredSupplies, setFilteredSupplies] = useState([]);
+  const searchInputRef = useRef(null);
 
   const getSupplies = async () => {
     const response = await axios.get('http://localhost:80/material-minder/api/supplies/')
@@ -30,10 +33,39 @@ const SuppliesList = () => {
       getSupplies()
     })
   }
+
+  const handleSearch = () => {
+    const searchValue = searchInputRef.current.value.toLowerCase();
+
+    if (searchValue === "") {
+      setFilteredSupplies([]);
+    } else {
+
+      const filteredSupplies = supplies.filter((supply) => {
+        const itemName = supply.name.toLowerCase();
+        const itemColour = supply.colour.toLowerCase();
+        const itemLocation = supply.location.toLowerCase();
+        const itemSupplier = supply.supplier.toLowerCase();
+        const itemType = supply.type.toLowerCase();
+
+        return itemName.includes(searchValue) || itemColour.includes(searchValue) || itemLocation.includes(searchValue) || itemSupplier.includes(searchValue) || itemType.includes(searchValue);
+      });
+
+      setFilteredSupplies(filteredSupplies);
+    };
+  }
  
   return (
     <div>
       <h1>Supplies List</h1>  
+
+      <Form.Control
+          type="text"
+          name="search"
+          placeholder="Search"
+          ref={searchInputRef}
+          onChange={handleSearch}
+        />
       <div className='p-5'>  
         <Table striped bordered hover>  
           <thead>  
@@ -52,7 +84,7 @@ const SuppliesList = () => {
             </tr>  
           </thead>  
           <tbody>  
-            {supplies.map((supply, key) => 
+            {(filteredSupplies.length > 0 ? filteredSupplies : supplies).map((supply, key) => 
               <tr key={key}>
                 <td>{supply.id}</td>
                 {supply.image ?
