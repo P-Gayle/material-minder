@@ -11,16 +11,44 @@ const AddSupplies = () => {
   const navigate = useNavigate()
 
   const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}))
+    // const name = event.target.name;
+    // const value = event.target.value;
+    // setInputs(values => ({...values, [name]: value}))
+
+    if (event.target.type === 'file') {
+    const file = event.target.files[0];
+    setInputs((values) => ({
+      ...values,
+      image: file,
+    }));
+    } else {
+      const name = event.target.name;
+      const value = event.target.value;
+      setInputs((values) => ({
+        ...values,
+        [name]: value,
+      }));
+    }
   }
 
    const handleSubmit = async (event) => {
     event.preventDefault();
     
-    try {
-      const response = await axios.post('http://localhost:80/material-minder/api/supplies/save', inputs)
+     try {
+      
+       const formData = new FormData();
+       formData.append('image', inputs.image);
+       formData.append('name', inputs.name);
+       formData.append('price', inputs.price);
+       formData.append('size', inputs.size);
+       formData.append('type', inputs.type);
+       formData.append('colour', inputs.colour);
+       formData.append('total_purchased', inputs.total_purchased);
+       formData.append('location', inputs.location);
+       formData.append('supplier', inputs.supplier);
+      //  console.log(formData)
+       
+      const response = await axios.post('http://localhost:80/material-minder/api/supplies/save', formData)
       console.log(response.data)
       navigate('/')
     } catch (error) {
@@ -37,7 +65,16 @@ const AddSupplies = () => {
                   padding: 30
       }}>
         
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} encType="multipart/form-data">
+
+          <Form.Group>
+            <Form.Label>Product Image (optional):</Form.Label>
+            <Form.Control
+              type="file"
+              name="image"
+              placeholder="upload the product image"
+              onChange={handleChange} />
+          </Form.Group>
           
           <Form.Group>
               <Form.Label>Product name:</Form.Label>
@@ -73,7 +110,7 @@ const AddSupplies = () => {
             <Form.Control
               name="type"
               as="select"
-              custom
+              // custom
               // placeholder="Enter the product type"
               onChange={handleChange}>
               <option value="fabric">Fabric</option>
