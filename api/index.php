@@ -38,22 +38,69 @@ switch ($method) {
         break;
 
     case "POST":
-        $item = json_decode(file_get_contents('php://input'));
+        // $item = json_decode(file_get_contents('php://input'));
+
+        if (isset($_FILES['image'])) {
+            $file = $_FILES['image'];
+            $fileName = $file['name'];
+            $fileTmpName = $file['tmp_name'];
+            $fileSize = $file['size'];
+            $fileError = $file['error'];
+            $fileType = $file['type'];
+
+            $fileExt = explode('.', $fileName);
+            $fileActualExt = strtolower(end($fileExt));
+
+            $allowed = array('jpg', 'jpeg', 'png');
+
+            if (in_array($fileActualExt, $allowed)) {
+                if ($fileError === 0) {
+                    if ($fileSize < 5000000) { // 5 MB
+                        $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                        $fileDestination = 'uploads/' . $fileNameNew;
+                        move_uploaded_file($fileTmpName, $fileDestination);
+                    } else {
+                        echo "Your file is too big!";
+                    }
+                } else {
+                    echo "There was an error uploading your file!";
+                }
+            } else {
+                echo "You cannot upload files of this type!";
+            }
+        }
+
         $sql =
-        "INSERT INTO supplies(id, name, price, size, type, location, colour, supplier, total_purchased, created_at)
-        VALUES(null, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at)";
+        "INSERT INTO supplies(id, name, price, size, type, location, colour, supplier, total_purchased, created_at, image)
+        VALUES(null, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at, :image)";
         $stmt = $conn->prepare($sql);
         $created_at = date('Y-m-d');
+
+        
         //the below statements won't work unless json_decode $item above
-        $stmt->bindParam(':name', $item->name);
-        $stmt->bindParam(':price', $item->price);
-        $stmt->bindParam(':size', $item->size);
-        $stmt->bindParam(':type', $item->type);
-        $stmt->bindParam(':location', $item->location);
-        $stmt->bindParam(':colour', $item->colour);
-        $stmt->bindParam(':supplier', $item->supplier);
-        $stmt->bindParam(':total_purchased', $item->total_purchased);
+        // $stmt->bindParam(':name', $item->name);
+        // $stmt->bindParam(':price', $item->price);
+        // $stmt->bindParam(':size', $item->size);
+        // $stmt->bindParam(':type', $item->type);
+        // $stmt->bindParam(':location', $item->location);
+        // $stmt->bindParam(':colour', $item->colour);
+        // $stmt->bindParam(':supplier', $item->supplier);
+        // $stmt->bindParam(':total_purchased', $item->total_purchased);
+        // $stmt->bindParam(':created_at', $created_at);
+        // $stmt->bindParam(':image', $fileDestination);
+
+        $stmt->bindParam(':name', $_POST['name']);
+        $stmt->bindParam(':price', $_POST['price']);
+        $stmt->bindParam(':size', $_POST['size']);
+        $stmt->bindParam(':type',
+            $_POST['type']
+        );
+        $stmt->bindParam(':location', $_POST['location']);
+        $stmt->bindParam(':colour', $_POST['colour']);
+        $stmt->bindParam(':supplier', $_POST['supplier']);
+        $stmt->bindParam(':total_purchased', $_POST['total_purchased']);
         $stmt->bindParam(':created_at', $created_at);
+        $stmt->bindParam(':image', $fileDestination);
 
         if($stmt->execute()){
             $response = ['status' => 1, 'message' => 'Record created successfully'];
