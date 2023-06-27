@@ -54,7 +54,17 @@ const SuppliesList = () => {
       setFilteredSupplies(filteredSupplies);
     };
   }
- 
+
+ //a function to highlight text of the supply item if quantity is below 2
+  const highlightText = (supply) => {
+    const quantityAvailable = supply.total_purchased - supply.total_used;
+    if ( quantityAvailable < 2) {
+      return <span style={{ color: 'red' }}>{quantityAvailable}</span>
+    } else {
+      return quantityAvailable
+    }
+  }
+
   return (
     <div>
       <h1>Supplies List</h1>  
@@ -85,7 +95,7 @@ const SuppliesList = () => {
           </thead>  
           <tbody>  
             {(filteredSupplies.length > 0 ? filteredSupplies : supplies).map((supply, key) => 
-              <tr key={key}>
+              <tr key={key} style ={{color:highlightText(supply)}}>
                 <td>{supply.id}</td>
                 {supply.image ?
                   (<td><img src={`http://localhost:80/material-minder/api/${supply.image}`} alt="item image" style={{ width: '50px' }} /></td>) : (<td>No image</td>)}
@@ -94,7 +104,8 @@ const SuppliesList = () => {
                 <td>{supply.size}</td>
                 <td>{supply.type}</td>
                 <td>{supply.colour}</td>
-                <td>{supply.total_purchased-supply.total_used}</td>
+                <td>{highlightText(supply)}</td>
+                {/* <td>{supply.total_purchased-supply.total_used}</td> */}
                 <td>{supply.location}</td>
                 <td>{supply.supplier}</td>
                 <td>
