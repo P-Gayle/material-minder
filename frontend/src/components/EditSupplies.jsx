@@ -82,16 +82,25 @@ function EditSupplies() {
                 name="size"
                 onChange={handleChange} />
           </Form.Group>
-          
+
           <Form.Group>
-            <Form.Label>Product type:</Form.Label>
+              <Form.Label>Product type:</Form.Label>
             <Form.Control
               value={inputs.type}
-              type="text" 
               name="type"
-              onChange={handleChange}/>
+              as="select"
+              // custom
+              // placeholder="Enter the product type"
+              onChange={handleChange}>
+              <option value="fabric">Fabric</option>
+              <option value="thread">Thread</option>
+              <option value="elastic">Elastic</option>
+              <option value="poppers">Poppers</option>
+              <option value="hook and eye">Hook and Eyes</option>  
+              <option value="zip">Zip</option>
+              </Form.Control>
           </Form.Group>
-
+          
           <Form.Group>
             <Form.Label>Product colour:</Form.Label>
             <Form.Control

@@ -51,7 +51,7 @@ const handleSubmit = async (event) => {
 }
   return (
    <div>
-      <h1>Edit Your Supplies</h1>
+      <h1>Update Quantity</h1>
       <div style={{ display: 'block', 
                   width: 600, 
                   padding: 30

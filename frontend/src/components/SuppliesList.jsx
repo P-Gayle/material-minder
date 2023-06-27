@@ -90,7 +90,10 @@ const SuppliesList = () => {
               <th>Amount Available</th>
               <th>Storage Location</th>
               <th>Supplier</th> 
-              <th>Actions</th>        
+              <th>Edit</th>   
+              <th>Update Quantity</th>
+              <th>Delete</th>
+              <th>Details</th>
             </tr>  
           </thead>  
           <tbody>  
@@ -105,14 +108,13 @@ const SuppliesList = () => {
                 <td>{supply.type}</td>
                 <td>{supply.colour}</td>
                 <td>{highlightText(supply)}</td>
-                {/* <td>{supply.total_purchased-supply.total_used}</td> */}
                 <td>{supply.location}</td>
                 <td>{supply.supplier}</td>
-                <td>
-                  <Link to={`/supply/${supply.id}/edit`}> Edit</Link>
-                  <Link to={`/supply/${supply.id}/quantity`}> Update quantity</Link>
-                  <button onClick={() => deleteSupply(supply.id)}>Delete</button>
+                <td><Link to={`/supply/${supply.id}/edit`}><i className="fa-solid fa-pen-to-square"></i></Link></td>
+                <td><Link to={`/supply/${supply.id}/quantity`}><i className="fa-solid fa-calculator"></i></Link></td>
+                <td><button onClick={() => deleteSupply(supply.id)}><i className="fa-solid fa-trash"></i></button>
                 </td>
+                <td><i className="fa-solid fa-circle-info"></i></td>
               </tr>
             )} 
           </tbody>  
