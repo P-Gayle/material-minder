@@ -37,11 +37,11 @@ const SupplyDetails = () => {
             <div><span>Total Amount Used: </span>{supply.total_used}</div>
             <div><span>Amount Available: </span>{supply.total_purchased - supply.total_used}</div>   
           
-          <div><Link to={`/supply/${supply.id}/edit`}>Edit item details</Link></div>
+          <div className='edit-details'><Link to={`/supply/${supply.id}/edit`}>Edit item details</Link></div>
           </div>
         
         </div>
-         <div className='note'>{supply.notes}</div>
+         <div className='note'>Notes:<br></br>{supply.notes}</div>
         </>
     )
 }

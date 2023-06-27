@@ -28,7 +28,7 @@
 }
 
 .info {
-    margin: 25px; 
+    margin: 20px; 
     line-height: 1.6;
 }
 
@@ -36,4 +36,8 @@
     font-weight: bold;
 }
 
+.edit-details {
+    margin-top: 10px;
+    
+}
 
