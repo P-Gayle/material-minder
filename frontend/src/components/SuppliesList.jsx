@@ -114,7 +114,7 @@ const SuppliesList = () => {
                 <td><Link to={`/supply/${supply.id}/quantity`}><i className="fa-solid fa-calculator"></i></Link></td>
                 <td><button onClick={() => deleteSupply(supply.id)}><i className="fa-solid fa-trash"></i></button>
                 </td>
-                <td><i className="fa-solid fa-circle-info"></i></td>
+                <td><Link to={`/supply/${supply.id}/details`}><i className="fa-solid fa-circle-info"></i></Link></td>
               </tr>
             )} 
           </tbody>  

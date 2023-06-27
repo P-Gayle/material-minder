@@ -71,8 +71,8 @@ switch ($method) {
         }
 
         $sql =
-        "INSERT INTO supplies(id, name, price, size, type, location, colour, supplier, total_purchased, created_at, image)
-        VALUES(null, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at, :image)";
+        "INSERT INTO supplies(id, name, price, size, type, location, colour, supplier, total_purchased, created_at, image, notes)
+        VALUES(null, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at, :image, :notes)";
         $stmt = $conn->prepare($sql);
         $created_at = date('Y-m-d');
 
@@ -92,15 +92,14 @@ switch ($method) {
         $stmt->bindParam(':name', $_POST['name']);
         $stmt->bindParam(':price', $_POST['price']);
         $stmt->bindParam(':size', $_POST['size']);
-        $stmt->bindParam(':type',
-            $_POST['type']
-        );
+        $stmt->bindParam(':type', $_POST['type']);
         $stmt->bindParam(':location', $_POST['location']);
         $stmt->bindParam(':colour', $_POST['colour']);
         $stmt->bindParam(':supplier', $_POST['supplier']);
         $stmt->bindParam(':total_purchased', $_POST['total_purchased']);
         $stmt->bindParam(':created_at', $created_at);
         $stmt->bindParam(':image', $fileDestination);
+        $stmt->bindParam(':notes', $_POST['notes']);
 
         if($stmt->execute()){
             $response = ['status' => 1, 'message' => 'Record created successfully'];
@@ -113,7 +112,7 @@ switch ($method) {
     case "PUT":
         $item = json_decode(file_get_contents('php://input'));
         $sql =
-        "UPDATE supplies SET name=:name, price=:price, size=:size, type=:type, location=:location, colour=:colour, supplier=:supplier, updated_at=:updated_at WHERE id = :id";
+        "UPDATE supplies SET name=:name, price=:price, size=:size, type=:type, location=:location, colour=:colour, supplier=:supplier, notes=:notes, updated_at=:updated_at WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $updated_at = date('Y-m-d');
 
@@ -125,6 +124,7 @@ switch ($method) {
         $stmt->bindParam(':location', $item->location);
         $stmt->bindParam(':colour', $item->colour);
         $stmt->bindParam(':supplier', $item->supplier);
+        $stmt->bindParam(':notes', $item->notes);
         $stmt->bindParam(':updated_at', $updated_at);
 
         if ($stmt->execute()) {

@@ -46,6 +46,7 @@ const AddSupplies = () => {
        formData.append('total_purchased', inputs.total_purchased);
        formData.append('location', inputs.location);
        formData.append('supplier', inputs.supplier);
+       formData.append('notes', inputs.notes);
       //  console.log(formData)
        
       const response = await axios.post('http://localhost:80/material-minder/api/supplies/save', formData)
@@ -156,6 +157,15 @@ const AddSupplies = () => {
               type="text"
               name="supplier"
               placeholder="Enter the product's supplier"
+              onChange={handleChange}/>
+          </Form.Group>
+
+          <Form.Group>
+              <Form.Label>Notes:</Form.Label>
+            <Form.Control
+              type="text"
+              name="notes"
+              // placeholder="Enter the product's supplier"
               onChange={handleChange}/>
           </Form.Group>
           
