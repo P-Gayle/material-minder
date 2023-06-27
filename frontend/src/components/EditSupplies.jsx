@@ -127,6 +127,15 @@ function EditSupplies() {
               name="supplier"
               onChange={handleChange}/>
           </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Notes:</Form.Label>
+            <Form.Control
+              value={inputs.notes}
+              type="text"
+              name="notes"
+              onChange={handleChange}/>
+          </Form.Group>
           
           <Button variant="primary" type="submit">
             Save
