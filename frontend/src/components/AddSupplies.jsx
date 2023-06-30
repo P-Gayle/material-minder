@@ -51,7 +51,7 @@ const AddSupplies = () => {
        
       const response = await axios.post('http://localhost:80/material-minder/api/supplies/save', formData)
       console.log(response.data)
-      navigate('/')
+      navigate('/list')
     } catch (error) {
       console.error(error);
       throw new Error('Failed to add a supply product');

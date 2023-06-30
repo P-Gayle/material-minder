@@ -76,19 +76,6 @@ switch ($method) {
         $stmt = $conn->prepare($sql);
         $created_at = date('Y-m-d');
 
-        
-        //the below statements won't work unless json_decode $item above
-        // $stmt->bindParam(':name', $item->name);
-        // $stmt->bindParam(':price', $item->price);
-        // $stmt->bindParam(':size', $item->size);
-        // $stmt->bindParam(':type', $item->type);
-        // $stmt->bindParam(':location', $item->location);
-        // $stmt->bindParam(':colour', $item->colour);
-        // $stmt->bindParam(':supplier', $item->supplier);
-        // $stmt->bindParam(':total_purchased', $item->total_purchased);
-        // $stmt->bindParam(':created_at', $created_at);
-        // $stmt->bindParam(':image', $fileDestination);
-
         $stmt->bindParam(':name', $_POST['name']);
         $stmt->bindParam(':price', $_POST['price']);
         $stmt->bindParam(':size', $_POST['size']);

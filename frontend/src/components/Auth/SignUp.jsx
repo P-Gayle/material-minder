@@ -1,0 +1,156 @@
+import 'bootstrap/dist/css/bootstrap.css';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import './auth.css'
+
+const SignUp = () => {
+  const [name, setName] = useState("")
+  const [password, setPassword] = useState("")
+  const [passwordConfirmation, setPasswordConfirmation] = useState("")
+  const [error, setError] = useState("")
+  const [msg, setMsg] = useState("")
+
+  useEffect(() => {
+    setTimeout(function(){ 
+      setMsg("")
+    }, 10000)
+  }, [msg])
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (name !== "" && password !== "" && passwordConfirmation !== "") {
+       const url = "http://localhost/Material-Minder/api/signUp.php";
+            const headers = {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            };
+            const data = {
+                name: name,
+                password: passwordConfirmation
+      }
+       
+      try {
+        const response = await axios.post(url, data, { headers });
+        const result = response.data[0].result;
+        setMsg(result);
+    } catch (error) {
+        setError(error);
+        console.log(error);
+    } 
+        setName("");
+        setPassword("");
+        setPasswordConfirmation("");
+    }
+      else {
+        setError("All fields are required")
+      }   
+  }
+  
+  const checkUser = async () => {
+    const url = "http://localhost/Material-Minder/api/checkUser.php";
+    const headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    };
+    const data = {
+      name: name
+    }
+       
+    try {
+      const response = await axios.post(url, data, { headers });
+      const result = response.data[0].result;
+      setError(result);
+    } catch (error) {
+      setError(error);
+      console.log(error);
+    }
+  }
+  
+const handleChange = (e, type) => {
+  switch (type) { 
+    case "name":
+      setError("")
+      setName(e.target.value)
+      if (e.target.value === "") {
+        setError("Username cannot be empty")
+      }
+      break;
+    case "password":
+      setError("")
+      setPassword(e.target.value)
+      if (e.target.value === "") {
+        setError("Password cannot be empty")
+      }
+      break;
+    case "passwordConfirmation":
+      setError("")
+      setPasswordConfirmation(e.target.value)
+      if (e.target.value === "") {
+        setError("Password Confirmation cannot be empty")
+      }
+      else if (e.target.value !== password) { 
+        setError("Password and Password Confirmation must match")
+      }      
+      break;
+    default:
+  }
+  }
+  
+  const checkPassword = () => {
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters")
+    }
+  }
+
+    return (
+        <>
+        <h1>Sign Up</h1>
+                
+        <Form onSubmit={handleSubmit} className="form">
+          <p>
+            {msg !== "" ?
+              <span className="success">{msg}</span> :
+              <span className="error">{error}</span>
+            }      
+          </p>
+         
+          <Form.Group>
+            <Form.Label>Choose a user name:</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => handleChange(e, "name")} 
+              onBlur={checkUser}/>
+          </Form.Group>
+          
+          <Form.Group>
+              <Form.Label>Password:</Form.Label>
+            <Form.Control
+              type="text"
+              name="password"
+              value={password}
+              onBlur={checkPassword}
+              onChange={(e) => handleChange(e, "password")} />
+          </Form.Group>
+
+          <Form.Group>
+              <Form.Label>Confirm Password:</Form.Label>
+            <Form.Control
+              type="text"
+              name="passwordConfirmation"
+              value={passwordConfirmation}
+              onChange={(e) => handleChange(e, "passwordConfirmation")} />
+          </Form.Group>
+          
+          <Button variant="primary" type="submit">
+            Sign Up
+          </Button>
+        </Form>
+        </>
+    )
+}
+
+export default SignUp

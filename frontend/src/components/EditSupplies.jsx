@@ -37,7 +37,7 @@ function EditSupplies() {
     try {
       const response = await axios.put(`http://localhost:80/material-minder/api/supply/${id}/edit`, inputs)
       console.log(response.data)
-      navigate('/')
+      navigate(-1)
     } catch (error) {
       console.error(error);
       throw new Error('Failed to edit the supply product');
