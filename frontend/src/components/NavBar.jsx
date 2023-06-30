@@ -4,9 +4,12 @@ const NavBar = () => {
   return (
     <div>
         <nav>
-            <ul>
+              <ul>
+                  <li>
+                    <Link to="/">Home</Link>
+                </li>
                 <li>
-                    <Link to="/">Supplies List</Link>
+                    <Link to="/list">Supplies List</Link>
                 </li>
                 <li>
                     <Link to="/add">Add Supplies</Link>

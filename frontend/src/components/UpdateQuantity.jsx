@@ -43,7 +43,7 @@ const handleSubmit = async (event) => {
         }
       )
       console.log(response.data)
-      navigate('/')
+      navigate('/list')
     } catch (error) {
       console.error(error);
       throw new Error('Failed to edit the supply product');
