@@ -2,9 +2,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 import './auth.css'
-// import { useNavigate } from 'react-router-dom'
-// import axios from 'axios'
 
 const SignUp = () => {
   const [name, setName] = useState("")
@@ -16,63 +15,59 @@ const SignUp = () => {
   useEffect(() => {
     setTimeout(function(){ 
       setMsg("")
-    }, 15000)
+    }, 10000)
   }, [msg])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (name !== "" && password !== "" && passwordConfirmation !== "") {
-       var url = "http://localhost/Material-Minder/api/signUp.php";
-            var headers = {
+       const url = "http://localhost/Material-Minder/api/signUp.php";
+            const headers = {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             };
-            var Data = {
+            const data = {
                 name: name,
                 password: passwordConfirmation
-            }
-            fetch(url, {
-                method: "POST",
-                headers: headers,
-                body: JSON.stringify(Data)
-            }).then((response) => response.json())
-            .then((response) => {
-                setMsg(response[0].result);
-            }).catch((err) =>{
-                setError(err);
-                console.log(err);
-            });
-            setName("");
-            setPassword("");
-            setPasswordConfirmation("");
+      }
+       
+      try {
+        const response = await axios.post(url, data, { headers });
+        const result = response.data[0].result;
+        setMsg(result);
+    } catch (error) {
+        setError(error);
+        console.log(error);
+    } 
+        setName("");
+        setPassword("");
+        setPasswordConfirmation("");
     }
       else {
         setError("All fields are required")
       }   
   }
   
-  const checkUser = () => {
-        var url = "http://localhost/Material-Minder/api/checkUser.php";
-        var headers = {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        };
-        var Data = {
-            name: name
-        }
-        fetch(url, {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(Data)
-        }).then((response) => response.json())
-        .then((response) => {
-            setError(response[0].result);
-        }).catch((err) =>{
-            setError(err);
-            console.log(err);
-        });
+  const checkUser = async () => {
+    const url = "http://localhost/Material-Minder/api/checkUser.php";
+    const headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    };
+    const data = {
+      name: name
     }
-
+       
+    try {
+      const response = await axios.post(url, data, { headers });
+      const result = response.data[0].result;
+      setError(result);
+    } catch (error) {
+      setError(error);
+      console.log(error);
+    }
+  }
+  
 const handleChange = (e, type) => {
   switch (type) { 
     case "name":
