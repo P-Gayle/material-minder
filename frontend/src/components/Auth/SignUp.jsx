@@ -2,10 +2,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import './auth.css'
 
 const SignUp = () => {
+  const navigate = useNavigate()
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
@@ -15,7 +17,8 @@ const SignUp = () => {
   useEffect(() => {
     setTimeout(function(){ 
       setMsg("")
-    }, 10000)
+      
+    }, 6000)
   }, [msg])
 
   const handleSubmit = async (event) => {
@@ -35,17 +38,26 @@ const SignUp = () => {
         const response = await axios.post(url, data, { headers });
         const result = response.data[0].result;
         setMsg(result);
+         
     } catch (error) {
         setError(error);
         console.log(error);
-    } 
+      } 
+      
         setName("");
         setPassword("");
-        setPasswordConfirmation("");
+      setPasswordConfirmation("");
+       setTimeout(function(){ 
+     
+       navigate('/signin')
+    }, 4000)
+      
+     
     }
       else {
         setError("All fields are required")
-      }   
+    } 
+   
   }
   
   const checkUser = async () => {
