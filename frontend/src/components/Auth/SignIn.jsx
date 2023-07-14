@@ -76,6 +76,7 @@ const SignIn = () => {
             setMsg(response[0].result)
             setTimeout(function(){
               localStorage.setItem("login", true)
+              localStorage.setItem("userId", response[0].userId); // Store the user ID in localStorage
               navigate('/list')
             }, 6000)
           }
