@@ -1,3 +1,5 @@
+import './NavBar.css'
+
 import { Link, useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
@@ -9,8 +11,9 @@ const NavBar = () => {
     navigate('/')
   }
   return (
-    <div>
-        <nav>
+    <div className='nav'>
+    
+        <nav >
               <ul>
                   <li>
                     <Link to="/">Home</Link>
@@ -30,8 +33,10 @@ const NavBar = () => {
                 <li className='logout' onClick ={logout}>Logout</li>
               
             </ul>
-        </nav>
-    </div>
+      </nav>
+      </div>
+      
+      
   )
 }
 
