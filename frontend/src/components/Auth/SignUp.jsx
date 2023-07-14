@@ -46,8 +46,8 @@ const SignUp = () => {
       
         setName("");
         setPassword("");
-      setPasswordConfirmation("");
-       setTimeout(function(){ 
+        setPasswordConfirmation("");
+        setTimeout(function(){ 
      
        navigate('/signin')
     }, 4000)
