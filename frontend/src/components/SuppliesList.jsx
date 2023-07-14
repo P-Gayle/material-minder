@@ -4,23 +4,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Form } from 'react-bootstrap';  
 import { Link } from "react-router-dom";
 
-
 const SuppliesList = () => {
 
   const [supplies, setSupplies] = useState([])
   const [filteredSupplies, setFilteredSupplies] = useState([]);
   const searchInputRef = useRef(null);
-
+  
   const getSupplies = async () => {
-    const response = await axios.get('http://localhost:80/material-minder/api/supplies/')
-    try {
-        console.log(response.data);
-        setSupplies(response.data);
-        } catch (error) {
-          console.error(error);
-          throw new Error('Failed to get supplies');
-        }  
+  try {
+    // Retrieve the user ID from localStorage
+    const userId = localStorage.getItem("userId");
+    
+    if (userId) {
+      const response = await axios.get(`http://localhost:80/material-minder/api/supplies/?userId=${userId}`);
+      console.log(response.data);
+      setSupplies(response.data);
+    } else {
+      throw new Error('User ID not found in localStorage');
     }
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to get supplies');
+  }
+};
  
   useEffect(() => {
     getSupplies()   

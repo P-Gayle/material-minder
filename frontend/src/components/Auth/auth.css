@@ -9,3 +9,8 @@
     font-size: 0.8rem;
     margin-top: 0.5rem;
 }
+
+.logout {
+    cursor: pointer;
+    color: blue
+}

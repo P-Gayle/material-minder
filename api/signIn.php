@@ -14,25 +14,31 @@ $dData = json_decode($eData, true);
 
 $name = $dData['name'];
 $password = $dData['password'];
-
 $result = "";
 
 if ($name != "" && $password != "") {
-    $sql = "INSERT INTO users(name, password) 
-    VALUES(:name, :password)";
+    $sql = "SELECT * FROM users WHERE name=:name";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':password', $password);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($stmt->execute()) {
-        $result = "You have registered successfully!";
+    if ($stmt->rowCount() != 0) {
+        // $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($password != $row['password']) {
+            $result = "Invalid password!";
+        } else {
+            $result = "Logged in successfully! Redirecting...";
+            $userId = $row['userId'];
+        }
     } else {
-        $result = "";
+        $result = "Invalid username!";
     }
 } else {
     $result = "";
 }
 
-$response[] = array("result" => $result);
+// $conn = null;
+$response[] = array("result" => $result, "userId" => $userId);
 echo json_encode($response);
 ?>
