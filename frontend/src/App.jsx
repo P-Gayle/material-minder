@@ -7,7 +7,7 @@ import SignUp from './components/Auth/SignUp'
 import SignIn from './components/Auth/SignIn'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar'
-import Home from './components/Home'
+import Home from './components/home/Home'
 import Protected from './components/Auth/Protected'
 import './App.css'
 
