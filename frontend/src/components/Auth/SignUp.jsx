@@ -118,7 +118,7 @@ const handleChange = (e, type) => {
 
     return (
         <>
-        <h1>Sign Up</h1>
+        <h1 className='auth-h1 py-2'>Sign Up</h1>
                 
         <Form onSubmit={handleSubmit} className="form">
           <p>
@@ -128,7 +128,7 @@ const handleChange = (e, type) => {
             }      
           </p>
          
-          <Form.Group>
+          <Form.Group className='input p-3'>
             <Form.Label>Choose a user name:</Form.Label>
             <Form.Control
               type="text"
@@ -138,7 +138,7 @@ const handleChange = (e, type) => {
               onBlur={checkUser}/>
           </Form.Group>
           
-          <Form.Group>
+          <Form.Group className='input p-3'>
               <Form.Label>Password:</Form.Label>
             <Form.Control
               type="text"
@@ -148,7 +148,7 @@ const handleChange = (e, type) => {
               onChange={(e) => handleChange(e, "password")} />
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group className='input p-3'>
               <Form.Label>Confirm Password:</Form.Label>
             <Form.Control
               type="text"
@@ -157,7 +157,7 @@ const handleChange = (e, type) => {
               onChange={(e) => handleChange(e, "passwordConfirmation")} />
           </Form.Group>
           
-          <Button variant="primary" type="submit" className='my-3'>
+          <Button type="submit" className='my-3 auth-btn'>
             Sign Up
           </Button>
         </Form>
