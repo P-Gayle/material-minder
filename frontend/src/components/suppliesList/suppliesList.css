@@ -11,3 +11,18 @@ th {
     margin-top: 6vh;
    
 }
+.fa-pen-to-square {
+    color: rgb(182, 158, 212);
+}
+
+.fa-calculator {
+    color: rgb(218, 162, 212)
+}
+
+.fa-trash {
+    color: red;
+}
+
+.fa-circle-info {
+    color: rgb(144, 203, 211);
+}

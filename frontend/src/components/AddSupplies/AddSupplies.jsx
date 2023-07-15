@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import './addSupplies.css'
 
 const AddSupplies = () => {
 
@@ -59,17 +60,16 @@ const AddSupplies = () => {
   }
 
   return (
-    <div>
-      <h1>Add Your Supplies</h1>
-      <div style={{ display: 'block', 
-                  width: 600, 
-                  padding: 30
-      }}>
+    <div >
+      <h1 className='auth-h1'>Add Your Supplies</h1>
+      <div className='add'>
         
         <Form onSubmit={handleSubmit} encType="multipart/form-data">
+            <div className='row'>
+            <div className='col'>
 
           <Form.Group>
-            <Form.Label>Product Image (optional):</Form.Label>
+            <Form.Label> Image (optional):</Form.Label>
             <Form.Control
               type="file"
               name="image"
@@ -78,11 +78,10 @@ const AddSupplies = () => {
           </Form.Group>
           
           <Form.Group>
-              <Form.Label>Product name:</Form.Label>
+              <Form.Label>Product Name:</Form.Label>
             <Form.Control
                 type="text"
                 name="name"
-                placeholder="Enter the Product name"
                 onChange={handleChange} />
           </Form.Group>
 
@@ -92,7 +91,6 @@ const AddSupplies = () => {
                 type="number"
                 step="any"
                 name="price"
-                placeholder="Enter the Product price per unit"
                 onChange={handleChange} />
           </Form.Group>
 
@@ -102,9 +100,9 @@ const AddSupplies = () => {
                 type="text"
                 step="any"
                 name="size"
-                placeholder="Enter the size of the product"
                 onChange={handleChange} />
-          </Form.Group>
+              </Form.Group>
+            
           
           <Form.Group>
               <Form.Label>Product type:</Form.Label>
@@ -121,55 +119,59 @@ const AddSupplies = () => {
               <option value="hook_and_eye">Hook and Eyes</option>  
               <option value="zip">Zip</option>
               </Form.Control>
-          </Form.Group>
+              </Form.Group>
+             
 
           <Form.Group>
-              <Form.Label>Product colour:</Form.Label>
+              <Form.Label>Colour:</Form.Label>
             <Form.Control
               type="text"
               name="colour"
-              placeholder="Enter the product colour"
               onChange={handleChange}/>
-          </Form.Group>
+              </Form.Group>
+                 </div>
+            
+             <div className='col'>
+            
 
           <Form.Group>
-              <Form.Label>quantity purchased:</Form.Label>
+              <Form.Label>Quantity Purchased:</Form.Label>
             <Form.Control
               type="number"
               step="any"
               name="total_purchased"
-              placeholder="Enter the quantity available"
               onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
-              <Form.Label>Product Location:</Form.Label>
+              <Form.Label>Storage Location:</Form.Label>
             <Form.Control
               type="text"
               name="location"
-              placeholder="Enter the product's location"
               onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
-              <Form.Label>Product Supplier:</Form.Label>
+              <Form.Label>Supplier/Shop Name:</Form.Label>
             <Form.Control
               type="text"
               name="supplier"
-              placeholder="Enter the product's supplier"
               onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
               <Form.Label>Notes:</Form.Label>
-            <Form.Control
+                <Form.Control
+                  className='notes'
               type="text"
               name="notes"
               // placeholder="Enter the product's supplier"
               onChange={handleChange}/>
-          </Form.Group>
+              </Form.Group>
+            </div>
+            </div>
           
-          <Button variant="primary" type="submit">
+          <Button className='add-btn' type="submit">
             Save
           </Button>
         </Form>
