@@ -67,7 +67,7 @@ const SuppliesList = () => {
   }
 
   return (
-    <div>
+    <div className='supplies'>
       <h1 className='auth-h1 py-2'>Supplies List</h1>  
 
       <Form.Control
