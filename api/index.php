@@ -18,28 +18,22 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
 
     case "GET":
-        $userId = $_GET['userId'];
-        // $sql = "SELECT * FROM supplies";
-        $sql = "SELECT * FROM supplies WHERE userId = :userId";
+        $sql = "SELECT * FROM supplies";
         // explode splits the path at /
         $path= explode('/', $_SERVER['REQUEST_URI']); 
         // print_r($path);
         // $path[4] is id
         if (isset($path[4]) && is_numeric($path[4])){
-            $sql .= " AND id = :id";
+            $sql .= " WHERE id = :id";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':id', $path[4]);
-            // $stmt->execute();
-            // $supplies = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $supplies = $stmt->fetch(PDO::FETCH_ASSOC);
         } else {  
         $stmt = $conn->prepare($sql);
-        // $stmt->execute();
-        // $supplies = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-
-        $stmt->bindParam(':userId', $userId);
         $stmt->execute();
         $supplies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
         echo json_encode($supplies);
         break;
 

@@ -29,7 +29,6 @@ if ($name != "" && $password != "") {
             $result = "Invalid password!";
         } else {
             $result = "Logged in successfully! Redirecting...";
-            $userId = $row['userId'];
         }
     } else {
         $result = "Invalid username!";
@@ -39,6 +38,6 @@ if ($name != "" && $password != "") {
 }
 
 // $conn = null;
-$response[] = array("result" => $result, "userId" => $userId);
+$response[] = array("result" => $result);
 echo json_encode($response);
 ?>
