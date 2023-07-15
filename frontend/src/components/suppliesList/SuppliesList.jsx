@@ -1,3 +1,4 @@
+import './suppliesList.css';
 import { useEffect, useState, useRef } from "react";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';  
@@ -73,15 +74,17 @@ const SuppliesList = () => {
 
   return (
     <div>
-      <h1>Supplies List</h1>  
+      <h1 className='auth-h1 py-2'>Supplies List</h1>  
 
       <Form.Control
+          className="search-input"
           type="text"
           name="search"
-          placeholder="Search"
+          placeholder="Search..."
           ref={searchInputRef}
           onChange={handleSearch}
-        />
+      />
+      
       <div className='p-5'>  
         <Table striped bordered hover>  
           <thead>  
@@ -118,7 +121,7 @@ const SuppliesList = () => {
                 <td>{supply.supplier}</td>
                 <td><Link to={`/supply/${supply.id}/edit`}><i className="fa-solid fa-pen-to-square"></i></Link></td>
                 <td><Link to={`/supply/${supply.id}/quantity`}><i className="fa-solid fa-calculator"></i></Link></td>
-                <td><button onClick={() => deleteSupply(supply.id)}><i className="fa-solid fa-trash"></i></button>
+                <td onClick={() => deleteSupply(supply.id)}><i className="fa-solid fa-trash"></i>
                 </td>
                 <td><Link to={`/supply/${supply.id}/details`}><i className="fa-solid fa-circle-info"></i></Link></td>
               </tr>

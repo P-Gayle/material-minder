@@ -96,15 +96,15 @@ const SignIn = () => {
 
     return (
         <>
-            <h1>Login</h1>
-            <Form onSubmit={handleSubmit}>
+            <h1 className='auth-h1 py-2'>Sign In</h1>
+            <Form onSubmit={handleSubmit} className='form'>
           <p>
             {error !== "" ?
               <span className="error">{error}</span> :
               <span className="success">{msg}</span>
             }
           </p>
-          <Form.Group>
+          <Form.Group className='input p-3'>
             <Form.Label>Username:</Form.Label>
             <Form.Control
               type="text"
@@ -113,7 +113,7 @@ const SignIn = () => {
               onChange={(e) => handleChange(e, "name")} />
           </Form.Group>
           
-          <Form.Group>
+          <Form.Group className='input p-3'>
               <Form.Label>Password:</Form.Label>
             <Form.Control
               type="text"
@@ -123,10 +123,11 @@ const SignIn = () => {
           </Form.Group>
           
           <Button
-            variant="primary"
+            // variant="primary"
+            className='auth-btn my-3'
             type="submit"
             defaultValue="login">
-            Login
+            Sign In
           </Button>
         </Form>
         </>
