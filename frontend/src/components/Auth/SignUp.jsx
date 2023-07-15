@@ -157,7 +157,7 @@ const handleChange = (e, type) => {
               onChange={(e) => handleChange(e, "passwordConfirmation")} />
           </Form.Group>
           
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className='my-3'>
             Sign Up
           </Button>
         </Form>
