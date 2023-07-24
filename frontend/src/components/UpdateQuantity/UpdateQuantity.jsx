@@ -50,7 +50,7 @@ const handleSubmit = async (event) => {
       throw new Error('Failed to edit the supply product');
     }
   }
-  
+
   return (
    <div>
       <h1 className='edit-h1'>Update Quantity</h1>
@@ -66,7 +66,7 @@ const handleSubmit = async (event) => {
               type="number"
               name="purchased"
               onChange={handleChange}/>
-               </Form.Group>
+          </Form.Group>
                
             <Form.Group>
             <Form.Label>Quantity Used:</Form.Label>
