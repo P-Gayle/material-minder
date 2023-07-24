@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
+import './editSupplies.css'
 import axios from 'axios'
 
 function EditSupplies() {
@@ -46,13 +47,13 @@ function EditSupplies() {
 
   return (
     <div>
-      <h1>Edit Your Supplies</h1>
-      <div style={{ display: 'block', 
-                  width: 600, 
-                  padding: 30
-      }}>
+      <h1 className='edit-h1'>Edit Your Supplies</h1>
+      <div className='edit'>
         
         <Form onSubmit={handleSubmit}>
+
+           <div className='row'>
+          <div className='col'>
           
           <Form.Group>
             <Form.Label>Product name:</Form.Label>
@@ -83,6 +84,7 @@ function EditSupplies() {
                 onChange={handleChange} />
           </Form.Group>
 
+               
           <Form.Group>
               <Form.Label>Product type:</Form.Label>
             <Form.Control
@@ -100,6 +102,8 @@ function EditSupplies() {
               <option value="zip">Zip</option>
               </Form.Control>
           </Form.Group>
+
+             
           
           <Form.Group>
             <Form.Label>Product colour:</Form.Label>
@@ -110,6 +114,9 @@ function EditSupplies() {
               onChange={handleChange}/>
           </Form.Group>
 
+               </div>
+            
+             <div className='col'>
           <Form.Group>
             <Form.Label>Product Location:</Form.Label>
             <Form.Control
@@ -133,11 +140,14 @@ function EditSupplies() {
             <Form.Control
               value={inputs.notes}
               type="text"
-              name="notes"
+                  name="notes"
+                  className='notes'
               onChange={handleChange}/>
-          </Form.Group>
+              </Form.Group>
+            </div>
+          </div>
           
-          <Button variant="primary" type="submit">
+          <Button className="edit-btn" type="submit">
             Save
           </Button>
         </Form>
