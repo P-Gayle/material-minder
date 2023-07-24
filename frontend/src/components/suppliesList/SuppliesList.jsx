@@ -11,9 +11,11 @@ const SuppliesList = () => {
   const [supplies, setSupplies] = useState([])
   const [filteredSupplies, setFilteredSupplies] = useState([]);
   const searchInputRef = useRef(null);
+  const userId = localStorage.getItem('userId');
+
 
   const getSupplies = async () => {
-    const response = await axios.get('http://localhost:80/material-minder/api/supplies/')
+    const response = await axios.get(`http://localhost:80/material-minder/api/supplies/?userId=${userId}`)
     try {
         console.log(response.data);
         setSupplies(response.data);
