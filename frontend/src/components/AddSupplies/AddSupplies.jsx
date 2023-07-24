@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import './addSupplies.css'
@@ -11,11 +11,15 @@ const AddSupplies = () => {
   const [inputs, setInputs] = useState({})
   const navigate = useNavigate()
 
-  const handleChange = (event) => {
-    // const name = event.target.name;
-    // const value = event.target.value;
-    // setInputs(values => ({...values, [name]: value}))
+  useEffect(() => {
+        setInputs(inputs => ({
+            ...inputs,
+            userId: localStorage.getItem('userId')
+        }));
+    }, []);
 
+  const handleChange = (event) => {
+  
     if (event.target.type === 'file') {
     const file = event.target.files[0];
     setInputs((values) => ({
@@ -39,6 +43,7 @@ const AddSupplies = () => {
       
        const formData = new FormData();
        formData.append('image', inputs.image);
+      formData.append('userId', inputs.userId);
        formData.append('name', inputs.name);
        formData.append('price', inputs.price);
        formData.append('size', inputs.size);
@@ -65,9 +70,10 @@ const AddSupplies = () => {
       <div className='add'>
         
         <Form onSubmit={handleSubmit} encType="multipart/form-data">
+         
             <div className='row'>
-            <div className='col'>
-
+            <div className='col'>        
+              
           <Form.Group>
             <Form.Label> Image (optional):</Form.Label>
             <Form.Control
@@ -101,8 +107,7 @@ const AddSupplies = () => {
                 step="any"
                 name="size"
                 onChange={handleChange} />
-              </Form.Group>
-            
+              </Form.Group>  
           
           <Form.Group>
               <Form.Label>Product type:</Form.Label>

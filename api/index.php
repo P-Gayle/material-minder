@@ -71,11 +71,12 @@ switch ($method) {
         }
 
         $sql =
-        "INSERT INTO supplies(id, name, price, size, type, location, colour, supplier, total_purchased, created_at, image, notes)
-        VALUES(null, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at, :image, :notes)";
+        "INSERT INTO supplies(id, userId, name, price, size, type, location, colour, supplier, total_purchased, created_at, image, notes)
+        VALUES(null, :userId, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at, :image, :notes)";
         $stmt = $conn->prepare($sql);
         $created_at = date('Y-m-d');
 
+        $stmt->bindParam(':userId', $_POST['userId']);
         $stmt->bindParam(':name', $_POST['name']);
         $stmt->bindParam(':price', $_POST['price']);
         $stmt->bindParam(':size', $_POST['size']);

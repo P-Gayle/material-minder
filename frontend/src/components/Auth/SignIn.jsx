@@ -70,12 +70,14 @@ const SignIn = () => {
         body: JSON.stringify(data)
       }).then((response) => response.json())
         .then((response) => {
+          console.log(response);
           if (response[0].result === "Invalid username!" || response[0].result === "Invalid password!") {
             setError(response[0].result)
           } else {
-            setMsg(response[0].result)
+            setMsg(response[0].result.message)
             setTimeout(function(){
               localStorage.setItem("login", true)
+              localStorage.setItem('userId', response[0].result.userId) 
               navigate('/list')
             }, 6000)
           }
@@ -90,8 +92,6 @@ const SignIn = () => {
       setError("Please enter username and password")
     }
 }
-
-
 
     return (
         <>

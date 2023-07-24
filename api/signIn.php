@@ -28,7 +28,7 @@ if ($name != "" && $password != "") {
         if ($password != $row['password']) {
             $result = "Invalid password!";
         } else {
-            $result = "Logged in successfully! Redirecting...";
+            $result = array("message" => "Logged in successfully! Redirecting...", "userId" => $row['userId']);
         }
     } else {
         $result = "Invalid username!";
