@@ -24,6 +24,7 @@ const SupplyDetails = () => {
     
     return (
       <>
+        <h1 className='edit-h1'>Supply Details</h1>
         <div className="supply-details">
            
             <div className="supply-image"> {supply.image ?
@@ -37,7 +38,7 @@ const SupplyDetails = () => {
             <div><span>Total Amount Used: </span>{supply.total_used}</div>
             <div><span>Amount Available: </span>{supply.total_purchased - supply.total_used}</div>   
           
-          <div className='edit-details'><Link to={`/supply/${supply.id}/edit`}>Edit item details</Link></div>
+          <button className='edit-details'><Link to={`/supply/${supply.id}/edit`}>Edit item details</Link></button>
           </div>
         
         </div>

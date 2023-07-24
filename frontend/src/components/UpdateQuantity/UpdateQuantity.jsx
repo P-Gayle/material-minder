@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css';
+import './updateQuantity.css'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 
@@ -48,16 +49,14 @@ const handleSubmit = async (event) => {
       console.error(error);
       throw new Error('Failed to edit the supply product');
     }
-}
+  }
+
   return (
    <div>
-      <h1>Update Quantity</h1>
-      <div style={{ display: 'block', 
-                  width: 600, 
-                  padding: 30
-       }}>
+      <h1 className='edit-h1'>Update Quantity</h1>
+      <div className='update'>
            
-           <p>{ inputs.name}</p>
+        <p className='productNameHeader'>{inputs.name}</p>
         
         <Form onSubmit={handleSubmit}>
 
@@ -67,7 +66,7 @@ const handleSubmit = async (event) => {
               type="number"
               name="purchased"
               onChange={handleChange}/>
-               </Form.Group>
+          </Form.Group>
                
             <Form.Group>
             <Form.Label>Quantity Used:</Form.Label>
@@ -77,7 +76,7 @@ const handleSubmit = async (event) => {
               onChange={handleChange}/>
           </Form.Group>
           
-          <Button variant="primary" type="submit">
+          <Button className='edit-btn' type="submit">
             Save
           </Button>
         </Form>

@@ -38,6 +38,10 @@
 
 .edit-details {
     margin-top: 10px;
+    background-image: linear-gradient(to bottom right, rgb(182, 158, 212), rgb(218, 162, 212), rgb(232, 223, 221), rgb(249, 253, 252), rgb(217, 238, 241), rgb(144, 203, 211));
+        color: rgb(69, 119, 146) !important;
+        font-weight: 700 !important;
+        border: none !important;
     
 }
 
