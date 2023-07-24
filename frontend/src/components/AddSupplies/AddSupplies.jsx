@@ -124,7 +124,7 @@ const AddSupplies = () => {
               <option value="hook_and_eye">Hook and Eyes</option>  
               <option value="zip">Zip</option>
               </Form.Control>
-              </Form.Group>
+          </Form.Group>
              
 
           <Form.Group>

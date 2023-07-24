@@ -18,6 +18,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
 
     case "GET":
+       
         $sql = "SELECT * FROM supplies";
         // explode splits the path at /
         $path= explode('/', $_SERVER['REQUEST_URI']); 
@@ -29,8 +30,11 @@ switch ($method) {
             $stmt->bindParam(':id', $path[4]);
             $stmt->execute();
             $supplies = $stmt->fetch(PDO::FETCH_ASSOC);
-        } else {  
+        } elseif (isset($_GET['userId'])) {
+        $userId = $_GET['userId'];
+        $sql .= " WHERE userId = :userId";
         $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':userId', $userId);
         $stmt->execute();
         $supplies = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -122,7 +126,7 @@ switch ($method) {
         }
 
         // Accumulate the total_purchased and total_used fields
-        if ($response['status'] == 1) {
+        if ($response['status'] == 1 && isset($item->total_purchased) && isset($item->total_used)) {
             $selectSql = "SELECT total_purchased, total_used FROM supplies WHERE id = :id";
             $selectStmt = $conn->prepare($selectSql);
             $selectStmt->bindParam(':id', $item->id);

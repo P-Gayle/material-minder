@@ -36,7 +36,19 @@ function EditSupplies() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:80/material-minder/api/supply/${id}/edit`, inputs)
+      const response = await axios.put(`http://localhost:80/material-minder/api/supply/${id}/edit`,
+        {
+          id: inputs.id,
+          name: inputs.name,
+          price: inputs.price,
+          size: inputs.size,
+          type: inputs.type,
+          colour: inputs.colour,
+          location: inputs.location,
+          supplier: inputs.supplier,
+          notes: inputs.notes
+
+      })
       console.log(response.data)
       navigate(-1)
     } catch (error) {
@@ -101,9 +113,7 @@ function EditSupplies() {
               <option value="hook and eye">Hook and Eyes</option>  
               <option value="zip">Zip</option>
               </Form.Control>
-          </Form.Group>
-
-             
+          </Form.Group>           
           
           <Form.Group>
             <Form.Label>Product colour:</Form.Label>
