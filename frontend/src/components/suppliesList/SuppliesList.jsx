@@ -2,7 +2,7 @@ import './suppliesList.css';
 import { useEffect, useState, useRef } from "react";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';  
-import { Table, Form } from 'react-bootstrap';  
+import { Table, Form, Modal } from 'react-bootstrap';  
 import { Link } from "react-router-dom";
 
 
@@ -10,8 +10,19 @@ const SuppliesList = () => {
 
   const [supplies, setSupplies] = useState([])
   const [filteredSupplies, setFilteredSupplies] = useState([]);
+  const [deleteSupplyId, setDeleteSupplyId] = useState(null);
   const searchInputRef = useRef(null);
   const userId = localStorage.getItem('userId');
+
+  //delete modal
+  const [show, setShow] = useState(false);
+  const deleteConfirmation = () => {
+    if (deleteSupplyId) {
+    deleteSupply(deleteSupplyId);
+    setDeleteSupplyId(null);
+  }
+        setShow(false);
+    }
 
 
   const getSupplies = async () => {
@@ -69,6 +80,7 @@ const SuppliesList = () => {
   }
 
   return (
+    <>
     <div className='supplies'>
       <h1 className='auth-h1 py-2'>Supplies List</h1>  
 
@@ -117,15 +129,31 @@ const SuppliesList = () => {
                 <td>{supply.supplier}</td>
                 <td><Link to={`/supply/${supply.id}/edit`}><i className="fa-solid fa-pen-to-square"></i></Link></td>
                 <td><Link to={`/supply/${supply.id}/quantity`}><i className="fa-solid fa-calculator"></i></Link></td>
-                <td onClick={() => deleteSupply(supply.id)}><i className="fa-solid fa-trash"></i>
+                {/* <td onClick={() => deleteSupply(supply.id)}><i className="fa-solid  */}
+                <td onClick={() => { setDeleteSupplyId(supply.id); setShow(true); }}><i className="fa-solid 
+                fa-trash"></i>
                 </td>
                 <td><Link to={`/supply/${supply.id}/details`}><i className="fa-solid fa-circle-info"></i></Link></td>
               </tr>
             )} 
           </tbody>  
-        </Table>  
+          </Table>  
+          
+          
+        </div>
+
+        <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure you want to delete this supply item?</Modal.Title>
+        </Modal.Header>
+        <Modal.Footer>
+          <button className="btn btn-danger" onClick={() => setShow(false)}>No</button>
+          <button className="btn btn-success" onClick={deleteConfirmation}>Yes</button>
+        </Modal.Footer>
+      </Modal>
       </div>
-    </div>
+      
+    </>
   )
 }
 
