@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './auth.css'
-// import axios from 'axios'
 
 const SignIn = () => {
   const [name, setName] = useState("")
@@ -97,38 +96,36 @@ const SignIn = () => {
         <>
             <h1 className='auth-h1 py-2'>Sign In</h1>
             <Form onSubmit={handleSubmit} className='form'>
-          <p>
-            {error !== "" ?
-              <span className="error">{error}</span> :
-              <span className="success">{msg}</span>
-            }
-          </p>
-          <Form.Group className='input p-3'>
-            <Form.Label>Username:</Form.Label>
-            <Form.Control
-              type="text"
-              // name="name"
-              value={name}
-              onChange={(e) => handleChange(e, "name")} />
-          </Form.Group>
+              <p>
+                {error !== "" ?
+                  <span className="error">{error}</span> :
+                  <span className="success">{msg}</span>
+                }
+              </p>
+              <Form.Group className='input p-3'>
+                <Form.Label>Username:</Form.Label>
+                <Form.Control
+                  type="text"
+                  // name="name"
+                  value={name}
+                  onChange={(e) => handleChange(e, "name")} />
+              </Form.Group>
           
-          <Form.Group className='input p-3'>
-              <Form.Label>Password:</Form.Label>
-            <Form.Control
-              type="text"
-              // name="password"
-              value={password}
-              onChange={(e) => handleChange(e, "password")} />
-          </Form.Group>
+              <Form.Group className='input p-3'>
+                  <Form.Label>Password:</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={password}
+                  onChange={(e) => handleChange(e, "password")} />
+              </Form.Group>
           
-          <Button
-            // variant="primary"
-            className='auth-btn my-3'
-            type="submit"
-            defaultValue="login">
-            Sign In
-          </Button>
-        </Form>
+              <Button
+                className='auth-btn my-3'
+                type="submit"
+                defaultValue="login">
+                Sign In
+              </Button>
+            </Form>
         </>
     )
 }

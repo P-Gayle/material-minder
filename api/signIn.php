@@ -26,7 +26,6 @@ if ($name != "" && $password != "") {
     if ($stmt->rowCount() != 0) {
 
         //to compare the password entered by the user and the hashed password stored in the database      
-
         if (!password_verify($password, $row['password'])) {
             $result = "Invalid password!";
         } 
@@ -40,14 +39,6 @@ if ($name != "" && $password != "") {
     $result = "Both fields are required.";
 }
 
-//to check if the password_verify() function works
-// if (password_verify('hash3333', '$2y$10$ZfAezy0zVDcbXsNU3Koobu7Gh1OZHY9eWaxGy47L3QraBYA.3kzhW')) {
-//     echo 'Password is valid!';
-// } else {
-//     echo 'Invalid password.';
-// }
-
-// $conn = null;
 $response[] = array("result" => $result);
 echo json_encode($response);
 ?>

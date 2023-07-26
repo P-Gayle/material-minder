@@ -39,21 +39,21 @@ const AddSupplies = () => {
    const handleSubmit = async (event) => {
     event.preventDefault();
     
-     try {
+      try {
       
-       const formData = new FormData();
-       formData.append('image', inputs.image);
-      formData.append('userId', inputs.userId);
-       formData.append('name', inputs.name);
-       formData.append('price', inputs.price);
-       formData.append('size', inputs.size);
-       formData.append('type', inputs.type);
-       formData.append('colour', inputs.colour);
-       formData.append('total_purchased', inputs.total_purchased);
-       formData.append('location', inputs.location);
-       formData.append('supplier', inputs.supplier);
-       formData.append('notes', inputs.notes);
-      //  console.log(formData)
+        const formData = new FormData();
+        formData.append('image', inputs.image);
+        formData.append('userId', inputs.userId);
+        formData.append('name', inputs.name);
+        formData.append('price', inputs.price);
+        formData.append('size', inputs.size);
+        formData.append('type', inputs.type);
+        formData.append('colour', inputs.colour);
+        formData.append('total_purchased', inputs.total_purchased);
+        formData.append('location', inputs.location);
+        formData.append('supplier', inputs.supplier);
+        formData.append('notes', inputs.notes);
+        //  console.log(formData)
        
       const response = await axios.post('http://localhost:80/material-minder/api/supplies/save', formData)
       console.log(response.data)
@@ -71,8 +71,8 @@ const AddSupplies = () => {
         
         <Form onSubmit={handleSubmit} encType="multipart/form-data">
          
-            <div className='row'>
-            <div className='col'>        
+        <div className='row'>
+        <div className='col'>        
               
           <Form.Group>
             <Form.Label> Image (optional):</Form.Label>
@@ -85,7 +85,7 @@ const AddSupplies = () => {
           
           <Form.Group>
               <Form.Label>Product Name:</Form.Label>
-            <Form.Control
+              <Form.Control
                 type="text"
                 name="name"
                 onChange={handleChange} />
@@ -93,7 +93,7 @@ const AddSupplies = () => {
 
            <Form.Group>
               <Form.Label>Price Per Unit:</Form.Label>
-            <Form.Control
+              <Form.Control
                 type="number"
                 step="any"
                 name="price"
@@ -102,7 +102,7 @@ const AddSupplies = () => {
 
            <Form.Group>
               <Form.Label>Size:</Form.Label>
-            <Form.Control
+              <Form.Control
                 type="text"
                 step="any"
                 name="size"
@@ -111,75 +111,70 @@ const AddSupplies = () => {
           
           <Form.Group>
               <Form.Label>Product type:</Form.Label>
-            <Form.Control
-              name="type"
-              as="select"
-              // custom
-              // placeholder="Enter the product type"
-              onChange={handleChange}>
-              <option value="fabric">Fabric</option>
-              <option value="thread">Thread</option>
-              <option value="elastic">Elastic</option>
-              <option value="poppers">Poppers</option>
-              <option value="hook_and_eye">Hook and Eyes</option>  
-              <option value="zip">Zip</option>
+              <Form.Control
+                name="type"
+                as="select"
+                onChange={handleChange}>
+                <option value="fabric">Fabric</option>
+                <option value="thread">Thread</option>
+                <option value="elastic">Elastic</option>
+                <option value="poppers">Poppers</option>
+                <option value="hook_and_eye">Hook and Eyes</option>  
+                <option value="zip">Zip</option>
               </Form.Control>
-          </Form.Group>
-             
+          </Form.Group>    
 
           <Form.Group>
               <Form.Label>Colour:</Form.Label>
-            <Form.Control
-              type="text"
-              name="colour"
-              onChange={handleChange}/>
-              </Form.Group>
-                 </div>
+              <Form.Control
+                type="text"
+                name="colour"
+                onChange={handleChange}/>
+          </Form.Group>
+        </div>
             
-             <div className='col'>
-            
-
+        <div className='col'>
+        
           <Form.Group>
               <Form.Label>Quantity Purchased:</Form.Label>
-            <Form.Control
-              type="number"
-              step="any"
-              name="total_purchased"
-              onChange={handleChange}/>
+              <Form.Control
+                type="number"
+                step="any"
+                name="total_purchased"
+                onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
               <Form.Label>Storage Location:</Form.Label>
-            <Form.Control
-              type="text"
-              name="location"
-              onChange={handleChange}/>
+              <Form.Control
+                type="text"
+                name="location"
+                onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
               <Form.Label>Supplier/Shop Name:</Form.Label>
-            <Form.Control
-              type="text"
-              name="supplier"
-              onChange={handleChange}/>
+              <Form.Control
+                type="text"
+                name="supplier"
+                onChange={handleChange}/>
           </Form.Group>
 
           <Form.Group>
               <Form.Label>Notes:</Form.Label>
-                <Form.Control
-                  className='notes'
-              type="text"
-              name="notes"
-              // placeholder="Enter the product's supplier"
-              onChange={handleChange}/>
-              </Form.Group>
-            </div>
-            </div>
+              <Form.Control
+                className='notes'
+                type="text"
+                name="notes"
+                onChange={handleChange}/>
+            </Form.Group>
+        </div>
+        </div>
           
           <Button className='add-btn' type="submit">
             Save
           </Button>
-        </Form>
+          </Form>
       </div>
     </div>
   )

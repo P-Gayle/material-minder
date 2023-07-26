@@ -117,7 +117,7 @@ const handleChange = (e, type) => {
   }
 
     return (
-        <>
+      <>
         <h1 className='auth-h1 py-2'>Sign Up</h1>
                 
         <Form onSubmit={handleSubmit} className="form">
@@ -161,7 +161,7 @@ const handleChange = (e, type) => {
             Sign Up
           </Button>
         </Form>
-        </>
+      </>
     )
 }
 

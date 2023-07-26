@@ -28,7 +28,9 @@ const SupplyDetails = () => {
         <div className="supply-details">
            
             <div className="supply-image"> {supply.image ?
-            (<img src={`http://localhost:80/material-minder/api/${supply.image}`} alt="item image" style={{ width: '300px' }} />) : "No image"}</div>
+              (<img src={`http://localhost:80/material-minder/api/${supply.image}`} alt="item image" style={{ width: '300px' }} />) : "No image"}
+            </div>
+          
           <div className="info">
             <header><h1>{supply.name}</h1></header>
             <div><span>Colour: </span>{supply.colour}</div>
@@ -38,12 +40,12 @@ const SupplyDetails = () => {
             <div><span>Total Amount Used: </span>{supply.total_used}</div>
             <div><span>Amount Available: </span>{supply.total_purchased - supply.total_used}</div>   
           
-          <button className='edit-details'><Link to={`/supply/${supply.id}/edit`}>Edit item details</Link></button>
+            <button className='edit-details'><Link to={`/supply/${supply.id}/edit`}>Edit item details</Link></button>
           </div>
         
         </div>
-         <div className='note'>Notes:<br></br>{supply.notes}</div>
-        </>
+        <div className='note'>Notes:<br></br>{supply.notes}</div>
+      </>
     )
 }
 

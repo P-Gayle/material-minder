@@ -14,8 +14,8 @@ const Protected = (props) => {
     }, [])
 
     return (
-    <Component />
-)
+        <Component />
+    )
 }
 
 export default Protected

@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Form, Modal } from 'react-bootstrap';  
 import { Link } from "react-router-dom";
 
-
 const SuppliesList = () => {
 
   const [supplies, setSupplies] = useState([])
@@ -14,16 +13,15 @@ const SuppliesList = () => {
   const searchInputRef = useRef(null);
   const userId = localStorage.getItem('userId');
 
-  //delete modal
+  //delete confirmation modal
   const [show, setShow] = useState(false);
   const deleteConfirmation = () => {
     if (deleteSupplyId) {
-    deleteSupply(deleteSupplyId);
-    setDeleteSupplyId(null);
-  }
-        setShow(false);
+      deleteSupply(deleteSupplyId);
+      setDeleteSupplyId(null);
+      }
+      setShow(false);
     }
-
 
   const getSupplies = async () => {
     const response = await axios.get(`http://localhost:80/material-minder/api/supplies/?userId=${userId}`)
@@ -69,7 +67,7 @@ const SuppliesList = () => {
     };
   }
 
- //a function to highlight text of the supply item if quantity is below 2
+ //to highlight text of the supply item if quantity is below 2
   const highlightText = (supply) => {
     const quantityAvailable = supply.total_purchased - supply.total_used;
     if ( quantityAvailable < 2) {
@@ -137,20 +135,18 @@ const SuppliesList = () => {
               </tr>
             )} 
           </tbody>  
-          </Table>  
-          
-          
+          </Table>    
         </div>
 
         <Modal show={show} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Are you sure you want to delete this supply item?</Modal.Title>
-        </Modal.Header>
-        <Modal.Footer>
-          <button className="btn btn-danger" onClick={() => setShow(false)}>No</button>
-          <button className="btn btn-success" onClick={deleteConfirmation}>Yes</button>
-        </Modal.Footer>
-      </Modal>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure you want to delete this supply item?</Modal.Title>
+          </Modal.Header>
+          <Modal.Footer>
+            <button className="btn btn-danger" onClick={() => setShow(false)}>No</button>
+            <button className="btn btn-success" onClick={deleteConfirmation}>Yes</button>
+          </Modal.Footer>
+        </Modal>
       </div>
       
     </>

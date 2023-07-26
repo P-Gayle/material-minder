@@ -64,7 +64,7 @@ function EditSupplies() {
         
         <Form onSubmit={handleSubmit}>
 
-           <div className='row'>
+          <div className='row'>
           <div className='col'>
           
           <Form.Group>
@@ -99,12 +99,10 @@ function EditSupplies() {
                
           <Form.Group>
               <Form.Label>Product type:</Form.Label>
-            <Form.Control
+              <Form.Control
               value={inputs.type}
               name="type"
               as="select"
-              // custom
-              // placeholder="Enter the product type"
               onChange={handleChange}>
               <option value="fabric">Fabric</option>
               <option value="thread">Thread</option>
@@ -123,10 +121,9 @@ function EditSupplies() {
               name="colour"
               onChange={handleChange}/>
           </Form.Group>
-
-               </div>
+          </div>
             
-             <div className='col'>
+          <div className='col'>
           <Form.Group>
             <Form.Label>Product Location:</Form.Label>
             <Form.Control

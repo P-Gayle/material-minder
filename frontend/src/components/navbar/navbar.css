@@ -8,11 +8,7 @@ nav ul {
 nav ul li {
     margin: 0 10px;
     padding: 10px;
-    /* color: rgb(190, 123, 170)!important; */
-    /* color: rgb(71, 53, 115)!important; */
-    color: rgb(69, 119, 146)!important;
-    /* color: white !important; */
-    
+    color: rgb(69, 119, 146)!important;    
     font-size: 1.3rem; 
     font-weight: 700;  
 }

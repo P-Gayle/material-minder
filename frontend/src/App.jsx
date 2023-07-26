@@ -20,8 +20,6 @@ function App() {
         <NavBar/>
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/list" element={<SuppliesList />} /> 
-            <Route path="/add" element={<AddSupplies />} /> */}
             <Route path="/list" element={<Protected Component={SuppliesList} />} />
             <Route path="/add" element={<Protected Component={AddSupplies} />} />
             <Route path="/supply/:id/edit" element={<EditSupplies/>}/>

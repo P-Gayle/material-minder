@@ -16,7 +16,6 @@
 }
 
 .form {
-    /* border: 1px solid #ccc; */
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2) ;
     padding: 2rem;
@@ -26,8 +25,6 @@
 
 .input {
     margin: 0.5rem 0;
-    /* border: 1px solid rgb(182, 158, 212);
-    border-radius: 10px; */
 }
 
 .form-control {
@@ -46,8 +43,6 @@
 }
 
 .auth-h1 {
- 
-    /* font-size: 100px; */
     background-image: -webkit-linear-gradient(70deg, 
         rgb(182, 158, 212),
         rgb(232, 223, 221),
@@ -57,7 +52,5 @@
     -webkit-text-fill-color: transparent;
     font-size: 7vh;
     margin-bottom: 1rem;
-    font-weight: 700;
-        
-  
+    font-weight: 700; 
 }

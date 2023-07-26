@@ -22,7 +22,7 @@ switch ($method) {
         $sql = "SELECT * FROM supplies";
         // explode splits the path at /
         $path= explode('/', $_SERVER['REQUEST_URI']); 
-        // print_r($path);
+     
         // $path[4] is id
         if (isset($path[4]) && is_numeric($path[4])){
             $sql .= " WHERE id = :id";
@@ -42,8 +42,6 @@ switch ($method) {
         break;
 
     case "POST":
-        // $item = json_decode(file_get_contents('php://input'));
-
         if (isset($_FILES['image'])) {
             $file = $_FILES['image'];
             $fileName = $file['name'];

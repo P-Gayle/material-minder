@@ -83,6 +83,6 @@ const handleSubmit = async (event) => {
       </div>
     </div>
   )
-  }
+}
 
 export default UpdateQuantity

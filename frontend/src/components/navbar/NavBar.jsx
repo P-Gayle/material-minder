@@ -23,20 +23,17 @@ const NavBar = () => {
                 </li>
                 <li>
                     <Link to="/add">Add Supplies</Link>
-          </li>
-          <li>
+                </li>
+                <li>
                     <Link to="/signin">Sign In</Link>
-          </li>
-          <li>
+                </li>
+                <li>
                     <Link to="/signup">Sign Up</Link>
-              </li>
+                </li>
                 <li className='logout' onClick ={logout}>Logout</li>
-              
             </ul>
       </nav>
-      </div>
-      
-      
+    </div>          
   )
 }
 
