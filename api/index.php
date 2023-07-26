@@ -62,13 +62,22 @@ switch ($method) {
                         $fileDestination = 'uploads/' . $fileNameNew;
                         move_uploaded_file($fileTmpName, $fileDestination);
                     } else {
-                        echo "Your file is too big!";
+                        // echo "Your file is too big!";
+                        $response = ['status' => 0, 'message' => 'Your file is too big!'];
+                        echo json_encode($response);
+                        exit();
                     }
                 } else {
-                    echo "There was an error uploading your file!";
+                    // echo "There was an error uploading your file!";
+                    $response = ['status' => 0, 'message' => 'There was an error uploading your file!'];
+                    echo json_encode($response);
+                    exit();
                 }
             } else {
-                echo "You cannot upload files of this type!";
+                // echo "You cannot upload files of this type!";
+                $response = ['status' => 0, 'message' => 'You cannot upload files of this type!'];
+                echo json_encode($response);
+                exit();
             }
         }
 

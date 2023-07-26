@@ -9,6 +9,8 @@ import './addSupplies.css'
 const AddSupplies = () => {
 
   const [inputs, setInputs] = useState({})
+  const [error, setError] = useState("")
+  const [msg, setMsg] = useState("") 
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,7 +18,17 @@ const AddSupplies = () => {
             ...inputs,
             userId: localStorage.getItem('userId')
         }));
-    }, []);
+  }, []);
+  
+  useEffect(() => {
+  let timerError = setTimeout(() => { setError("") }, 5000);
+  let timerMsg = setTimeout(() => { setMsg("") }, 5000);
+
+  return () => {
+    clearTimeout(timerError);
+    clearTimeout(timerMsg);
+  };
+}, [error, msg]);
 
   const handleChange = (event) => {
   
@@ -56,24 +68,40 @@ const AddSupplies = () => {
         //  console.log(formData)
        
       const response = await axios.post('http://localhost:80/material-minder/api/supplies/save', formData)
-      console.log(response.data)
-      navigate('/list')
+        console.log(response.data)
+        
+        if(response.data.status === 1) {
+          setMsg(response.data.message)
+           setTimeout(() => { 
+             navigate('/list')
+            }, 2000);
+        } else {
+            setError(response.data.message)      
+        
+        }
+      
+
     } catch (error) {
       console.error(error);
-      throw new Error('Failed to add a supply product');
+        // throw new Error('Failed to add a supply product');
+        setError('Failed to add a supply product');
     }
   }
 
   return (
     <div >
       <h1 className='auth-h1'>Add Your Supplies</h1>
+
+      {msg && <div className='success'>{msg}</div>} 
       <div className='add'>
         
         <Form onSubmit={handleSubmit} encType="multipart/form-data">
          
         <div className='row'>
         <div className='col'>        
-              
+
+           {error && <div className='error'>{error}</div>}
+          
           <Form.Group>
             <Form.Label> Image (optional):</Form.Label>
             <Form.Control
@@ -115,6 +143,8 @@ const AddSupplies = () => {
                 name="type"
                 as="select"
                 onChange={handleChange}>
+                  
+                <option value="" selected disabled hidden>Click to select a product type</option>
                 <option value="fabric">Fabric</option>
                 <option value="thread">Thread</option>
                 <option value="elastic">Elastic</option>
