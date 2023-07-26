@@ -24,18 +24,28 @@ if ($name != "" && $password != "") {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($stmt->rowCount() != 0) {
-        // $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($password != $row['password']) {
+
+        //to compare the password entered by the user and the hashed password stored in the database      
+
+        if (!password_verify($password, $row['password'])) {
             $result = "Invalid password!";
-        } else {
+        } 
+        else {
             $result = array("message" => "Logged in successfully! Redirecting...", "userId" => $row['userId']);
         }
     } else {
         $result = "Invalid username!";
     }
 } else {
-    $result = "";
+    $result = "Both fields are required.";
 }
+
+//to check if the password_verify() function works
+// if (password_verify('hash3333', '$2y$10$ZfAezy0zVDcbXsNU3Koobu7Gh1OZHY9eWaxGy47L3QraBYA.3kzhW')) {
+//     echo 'Password is valid!';
+// } else {
+//     echo 'Invalid password.';
+// }
 
 // $conn = null;
 $response[] = array("result" => $result);

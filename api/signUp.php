@@ -18,11 +18,14 @@ $password = $dData['password'];
 $result = "";
 
 if ($name != "" && $password != "") {
+     // Hash the password with the default algorithm (BCRYPT as of PHP 7.0)
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
     $sql = "INSERT INTO users(name, password) 
     VALUES(:name, :password)";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':password', $password);
+    $stmt->bindParam(':password', $hashedPassword);
 
     if ($stmt->execute()) {
         $result = "You have registered successfully! Please sign in to continue...";
