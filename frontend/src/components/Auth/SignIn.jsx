@@ -20,15 +20,15 @@ const SignIn = () => {
     }
     let loginStatus = localStorage.getItem("loginStatus")
     if (loginStatus) {
-      setError(loginStatus)
+      // setError(loginStatus)
       setTimeout(() => { 
         localStorage.clear()
         window.location.reload()
-      }, 3000) 
+      }, 1000) 
     }
     setTimeout(() => {
       setMsg("")
-    }, 5000)
+    }, 2000)
   }, [msg])
 
   const handleChange = (e, type) => {
@@ -79,7 +79,7 @@ const SignIn = () => {
               localStorage.setItem("login", true)
               localStorage.setItem('userId', response[0].result.userId) 
               navigate('/list')
-            }, 6000)
+            }, 1500)
           }
       
         }).catch((err) => {

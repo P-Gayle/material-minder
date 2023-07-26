@@ -25,7 +25,7 @@ if ($name != "" && $password != "") {
     $stmt->bindParam(':password', $password);
 
     if ($stmt->execute()) {
-        $result = "You have registered successfully!";
+        $result = "You have registered successfully! Please sign in to continue...";
     } else {
         $result = "";
     }
