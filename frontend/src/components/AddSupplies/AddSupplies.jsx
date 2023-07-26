@@ -91,6 +91,8 @@ const AddSupplies = () => {
   return (
     <div >
       <h1 className='auth-h1'>Add Your Supplies</h1>
+
+      {msg && <div className='success'>{msg}</div>} 
       <div className='add'>
         
         <Form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -99,7 +101,7 @@ const AddSupplies = () => {
         <div className='col'>        
 
            {error && <div className='error'>{error}</div>}
-          {msg && <div className='success'>{msg}</div>}   
+          
           <Form.Group>
             <Form.Label> Image (optional):</Form.Label>
             <Form.Control
@@ -141,6 +143,8 @@ const AddSupplies = () => {
                 name="type"
                 as="select"
                 onChange={handleChange}>
+                  
+                <option value="" selected disabled hidden>Select a product type</option>
                 <option value="fabric">Fabric</option>
                 <option value="thread">Thread</option>
                 <option value="elastic">Elastic</option>
