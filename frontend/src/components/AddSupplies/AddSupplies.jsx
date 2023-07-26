@@ -144,7 +144,7 @@ const AddSupplies = () => {
                 as="select"
                 onChange={handleChange}>
                   
-                <option value="" selected disabled hidden>Select a product type</option>
+                <option value="" selected disabled hidden>Click to select a product type</option>
                 <option value="fabric">Fabric</option>
                 <option value="thread">Thread</option>
                 <option value="elastic">Elastic</option>
