@@ -103,7 +103,8 @@ const AddSupplies = () => {
            {error && <div className='error'>{error}</div>}
           
           <Form.Group>
-            <Form.Label> Image (optional):</Form.Label>
+                <Form.Label> Image (optional) <span>5mb max</span></Form.Label>
+               
             <Form.Control
               type="file"
               name="image"
