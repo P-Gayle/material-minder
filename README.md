@@ -9,7 +9,3 @@
 - PHP
 - MySQL
 
-### Demo Login
-To try it out use:
-Name - demo,
-Password - demo1234
