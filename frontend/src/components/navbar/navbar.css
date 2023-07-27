@@ -1,0 +1,29 @@
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 10px;
+    padding: 10px;
+    color: rgb(69, 119, 146)!important;    
+    font-size: 1.3rem; 
+    font-weight: 700;  
+}
+
+a {
+    color: inherit;
+    text-decoration: none;  
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 1;
+} 
+

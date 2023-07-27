@@ -1,0 +1,32 @@
+.add {
+   
+    width: 80vw;
+    margin: 0 auto;
+    align-items: center;    
+}
+
+.notes {
+   height: 26vh;
+}
+
+.add .form-control {
+    margin-bottom: 2vh;
+    width: 100%;
+}
+
+.add-btn {
+    background-image: linear-gradient(to bottom right, rgb(182, 158, 212), rgb(218, 162, 212), rgb(232, 223, 221), rgb(249, 253, 252), rgb(217, 238, 241), rgb(144, 203, 211));
+    color: rgb(69, 119, 146)!important;
+    font-weight: 700!important;
+    border: none!important;
+    height: 5vh;
+    width: 50vw;
+}
+
+.row{
+    margin-bottom: 2vh;
+}
+
+.form-label span {
+    font-size: 0.7rem;
+}
