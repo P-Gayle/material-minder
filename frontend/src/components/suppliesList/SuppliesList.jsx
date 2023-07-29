@@ -10,6 +10,7 @@ const SuppliesList = () => {
   const [supplies, setSupplies] = useState([])
   const [filteredSupplies, setFilteredSupplies] = useState([]);
   const [deleteSupplyId, setDeleteSupplyId] = useState(null);
+  const [deleteSupplyName, setDeleteSupplyName] = useState(null);
   const searchInputRef = useRef(null);
   const userId = localStorage.getItem('userId');
 
@@ -19,6 +20,7 @@ const SuppliesList = () => {
     if (deleteSupplyId) {
       deleteSupply(deleteSupplyId);
       setDeleteSupplyId(null);
+      setDeleteSupplyName(null);
       }
       setShow(false);
     }
@@ -128,7 +130,7 @@ const SuppliesList = () => {
                 <td><Link to={`/supply/${supply.id}/edit`}><i className="fa-solid fa-pen-to-square"></i></Link></td>
                 <td><Link to={`/supply/${supply.id}/quantity`}><i className="fa-solid fa-calculator"></i></Link></td>
                 {/* <td onClick={() => deleteSupply(supply.id)}><i className="fa-solid  */}
-                <td onClick={() => { setDeleteSupplyId(supply.id); setShow(true); }}><i className="fa-solid 
+                <td onClick={() => { setDeleteSupplyId(supply.id); setDeleteSupplyName(supply.name); setShow(true); }}><i className="fa-solid 
                 fa-trash"></i>
                 </td>
                 <td><Link to={`/supply/${supply.id}/details`}><i className="fa-solid fa-circle-info"></i></Link></td>
@@ -140,7 +142,7 @@ const SuppliesList = () => {
 
         <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>Are you sure you want to delete this supply item?</Modal.Title>
+            <Modal.Title>Are you sure you want to delete {deleteSupplyName}?</Modal.Title>
           </Modal.Header>
           <Modal.Footer>
             <button className="btn btn-danger" onClick={() => setShow(false)}>No</button>
