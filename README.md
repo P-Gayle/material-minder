@@ -13,29 +13,29 @@
 ### Pages
 
 Home
-![Home page](/readme-images/home.png)
+![Home page](/readMe-images/home.png)
 
 Sign Up
-![Sign Up](/readme-images/signUp.png)
+![Sign Up](/readMe-images/signUp.png)
 
 Supplies List for the user signed in
-![supplies](/readme-images/suppliesList.png)
+![supplies](/readMe-images/suppliesList.png)
 
 search for an item
-![Search Bar](/readme-images/search.png)
+![Search Bar](/readMe-images/search.png)
 
 Edit a Supply item
-![edit page](/readme-images/edit.png)
+![edit page](/readMe-images/edit.png)
 
 Update quantity purchased or used to calculate the amount available
-![update quantity page](/readme-images/update.png)
+![update quantity page](/readMe-images/update.png)
 
 Supply details
-![supply details page](/readme-images/details.png)
+![supply details page](/readMe-images/details.png)
 
 Delete item modal
-![delete modal](/readme-images/delete.png)
+![delete modal](/readMe-images/delete.png)
 
 Add a Supply form
-![supply page](/readme-images/add.png)
+![supply page](/readMe-images/add.png)
 
