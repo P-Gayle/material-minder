@@ -24,7 +24,10 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (name !== "" && password !== "" && passwordConfirmation !== "") {
-       const url = "http://localhost/Material-Minder/api/signUp.php";
+      //  const url = "http://localhost/Material-Minder/api/signUp.php";
+      const url = "https://material-minder.000webhostapp.com/material-minder/api/signUp.php";
+
+      
             const headers = {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
@@ -57,11 +60,12 @@ const SignUp = () => {
       else {
         setError("All fields are required")
     } 
-   
   }
   
   const checkUser = async () => {
-    const url = "http://localhost/Material-Minder/api/checkUser.php";
+    // const url = "http://localhost/Material-Minder/api/checkUser.php";
+    const url = "https://material-minder.000webhostapp.com/material-minder/api/checkUser.php";
+
     const headers = {
       "Accept": "application/json",
       "Content-Type": "application/json"
@@ -135,7 +139,8 @@ const handleChange = (e, type) => {
               name="name"
               value={name}
               onChange={(e) => handleChange(e, "name")} 
-              onBlur={checkUser}/>
+            // onBlur={checkUser}
+            />
           </Form.Group>
           
           <Form.Group className='input p-3'>

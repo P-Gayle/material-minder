@@ -11,7 +11,8 @@ const SupplyDetails = () => {
     useEffect(() => {
     const fetchSupply = async () => {
       try {
-        const response = await axios.get(`http://localhost:80/material-minder/api/supply/${id}/details`)
+        // const response = await axios.get(`http://localhost:80/material-minder/api/supply/${id}/details`)
+        const response = await axios.get(`https://material-minder.000webhostapp.com/material-minder/api/supply/${id}/details`)
         // console.log(response.data)
         setSupply(response.data);
       } catch (error) {
@@ -28,7 +29,7 @@ const SupplyDetails = () => {
         <div className="supply-details">
            
             <div className="supply-image"> {supply.image ?
-              (<img src={`http://localhost:80/material-minder/api/${supply.image}`} alt="item image" style={{ width: '300px' }} />) : "No image"}
+              (<img src={`https://material-minder.000webhostapp.com/material-minder/api/${supply.image}`} alt="item image" style={{ width: '300px' }} />) : "No image"}
             </div>
           
           <div className="info">

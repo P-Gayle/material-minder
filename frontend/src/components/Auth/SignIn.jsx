@@ -52,7 +52,8 @@ const SignIn = () => {
   function handleSubmit(event) {
      event.preventDefault();
     if (name !== "" && password !== "") {
-      const url = "http://localhost/material-minder/api/signIn.php"
+      // const url = "http://localhost/material-minder/api/signIn.php"
+      const url = "https://material-minder.000webhostapp.com/material-minder/api/signIn.php"
       const headers = {
         "Accept": "application/json",
         "Content-Type": "application/json"
