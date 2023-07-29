@@ -13,7 +13,7 @@
 ### Pages
 
 Home
-![Home page ](./readme-images/home.png)
+![Home page](./readme-images/home.png)
 
 Sign Up
 ![Sign Up ](./readme-images/signUp.png)
