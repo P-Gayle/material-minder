@@ -43,7 +43,7 @@ const SignUp = () => {
         setMsg(result);
          
     } catch (error) {
-        setError(error.message);
+        setError(error);
         console.log(error);
       } 
       
@@ -79,7 +79,7 @@ const SignUp = () => {
       const result = response.data[0].result;
       setError(result);
     } catch (error) {
-      setError(error.message);
+      setError(error);
       console.log(error);
     }
   }
