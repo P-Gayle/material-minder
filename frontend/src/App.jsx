@@ -1,6 +1,6 @@
 import AddSupplies from './components/AddSupplies/AddSupplies'
 import EditSupplies from './components/EditSupplies/EditSupplies'
-import SuppliesList from './components/SuppliesList/SuppliesList'
+import SuppliesList from './components/suppliesList/SuppliesList'
 import UpdateQuantity from './components/UpdateQuantity/UpdateQuantity'
 import SupplyDetails from './components/SupplyDetails/SupplyDetails'
 import SignUp from './components/Auth/SignUp'
