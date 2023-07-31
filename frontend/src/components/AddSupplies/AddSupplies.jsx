@@ -68,7 +68,7 @@ const AddSupplies = () => {
         //  console.log(formData)
        
         // const response = await axios.post('http://localhost:80/material-minder/api/supplies/save', formData)
-        const response = await axios.post('https://material-minder.000webhostapp.com/material-minder/api/supplies/save', formData)
+        const response = await axios.post('https://material-minder.000webhostapp.com/api/supplies/save', formData)
         console.log(response.data)
         
         if(response.data.status === 1) {
