@@ -11,9 +11,18 @@ $objDb = new DbConnect;
 $conn = $objDb->connect();
 
 $eData = file_get_contents("php://input");
+if (!$eData) {
+    die('No input data provided');
+}
 $dData = json_decode($eData, true);
+if (!$dData) {
+    die('Could not decode input data');
+}
 
 $name = $dData['name'];
+if (!$name) {
+    die('Name not provided');
+}
 
 $result = "";
 
