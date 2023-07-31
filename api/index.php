@@ -176,4 +176,6 @@ switch ($method) {
         }
         echo json_encode($response);
         break;
-    }
+
+    
+   }

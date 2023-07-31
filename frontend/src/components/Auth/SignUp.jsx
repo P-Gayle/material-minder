@@ -25,7 +25,7 @@ const SignUp = () => {
     event.preventDefault();
     if (name !== "" && password !== "" && passwordConfirmation !== "") {
       //  const url = "http://localhost/Material-Minder/api/signUp.php";
-      const url = "https://material-minder.000webhostapp.com/material-minder/public_html/api/signUp.php";
+      const url = "https://material-minder.000webhostapp.com/material-minder/api/signUp.php";
 
       
             const headers = {
@@ -64,7 +64,7 @@ const SignUp = () => {
   
   const checkUser = async () => {
     // const url = "http://localhost/Material-Minder/api/checkUser.php";
-    const url = "https://material-minder.000webhostapp.com/material-minder/public_html/api/checkUser.php";
+    const url = "https://material-minder.000webhostapp.com/material-minder/api/checkUser.php";
 
     const headers = {
       "Accept": "application/json",
@@ -139,7 +139,7 @@ const handleChange = (e, type) => {
               name="name"
               value={name}
               onChange={(e) => handleChange(e, "name")} 
-            // onBlur={checkUser}
+              onBlur={checkUser}
             />
           </Form.Group>
           

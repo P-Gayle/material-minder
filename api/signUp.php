@@ -2,11 +2,7 @@
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST");
-header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Origin");
-header("Access-Control-Allow-Credentials: true");
-header('Access-Control-Max-Age: 1000');
-header("Content-Type: application/json, charset=UTF-8");
-
+header("Access-Control-Allow-Headers: Content-Type");
 
 include 'DbConnect.php';
 
