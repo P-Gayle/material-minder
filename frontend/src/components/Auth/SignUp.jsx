@@ -38,7 +38,7 @@ const SignUp = () => {
       }
        
       try {
-        console.log(data);
+        
         const response = await axios.post(url, data, { headers });
         const result = response.data[0].result;
         setMsg(result);
@@ -76,6 +76,7 @@ const SignUp = () => {
     }
        
     try {
+      console.log(data);
       const response = await axios.post(url, data, { headers });
       const result = response.data[0].result;
       setError(result);
