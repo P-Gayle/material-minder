@@ -2,6 +2,8 @@
 
 ## A CRUD web app to help dressmakers and tailors keep track of their fabric and trims inventory
 
+Deployed site link coming soon!
+
 ### Technology
 - React
 - React Bootstrap
