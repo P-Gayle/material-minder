@@ -22,7 +22,9 @@ const SignIn = () => {
       // setError(loginStatus)
       setTimeout(() => { 
         localStorage.clear()
-        window.location.reload()
+        // TODO: reload page (temporarily disabled)
+        console.log("reload")
+        // window.location.reload()
       }, 1000) 
     }
     setTimeout(() => {
@@ -83,7 +85,7 @@ const SignIn = () => {
           }
       
         }).catch((err) => {
-          setError(err)
+          setError(err.message)
           console.log(err)
         })
       }
@@ -115,7 +117,7 @@ const SignIn = () => {
               <Form.Group className='input p-3'>
                   <Form.Label>Password:</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="password"
                   value={password}
                   onChange={(e) => handleChange(e, "password")} />
               </Form.Group>

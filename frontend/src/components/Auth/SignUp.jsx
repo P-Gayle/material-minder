@@ -25,7 +25,9 @@ const SignUp = () => {
     event.preventDefault();
     if (name !== "" && password !== "" && passwordConfirmation !== "") {
       //  const url = "http://localhost/Material-Minder/api/signUp.php";
-      const url = "https://material-minder.000webhostapp.com/api/signUp.php";
+      // const url = "https://material-minder.000webhostapp.com/api/signUp.php";
+      // converted url to use relative link so will work on localhost and remote server
+      const url = "/api/signUp.php";
 
       
             const headers = {
@@ -44,17 +46,19 @@ const SignUp = () => {
         setMsg(result);
          
     } catch (error) {
-        setError(error);
-        console.log(error);
-      } 
+      setError(error.message);
+      // added return statement to prevent code from continuing onto the
+      // navigate('/signin') statement below
+      return
+    } 
       
         setName("");
         setPassword("");
         setPasswordConfirmation("");
         setTimeout(function(){ 
-     
-       navigate('/signin')
-    }, 4000)
+         
+           navigate('/signin')
+        }, 4000)
       
      
     }
@@ -65,7 +69,9 @@ const SignUp = () => {
   
   const checkUser = async () => {
     // const url = "http://localhost/Material-Minder/api/checkUser.php";
-    const url = "https://material-minder.000webhostapp.com/api/checkUser.php";
+    // const url = "https://material-minder.000webhostapp.com/api/checkUser.php";
+    // converted url to use relative link so will work on localhost and remote server
+    const url = "/api/checkUser.php";
 
     const headers = {
       "Accept": "application/json",
@@ -76,13 +82,12 @@ const SignUp = () => {
     }
        
     try {
-      console.log(data);
       const response = await axios.post(url, data, { headers });
       const result = response.data[0].result;
       setError(result);
     } catch (error) {
-      setError(error);
-      console.log(error);
+      // set error message to error.message (was previously getting set to the error object itself causing errors)
+      setError(error.message);
     }
   }
   
@@ -148,7 +153,7 @@ const handleChange = (e, type) => {
           <Form.Group className='input p-3'>
               <Form.Label>Password:</Form.Label>
             <Form.Control
-              type="text"
+              type="password"
               name="password"
               value={password}
               onBlur={checkPassword}
@@ -158,7 +163,7 @@ const handleChange = (e, type) => {
           <Form.Group className='input p-3'>
               <Form.Label>Confirm Password:</Form.Label>
             <Form.Control
-              type="text"
+              type="password"
               name="passwordConfirmation"
               value={passwordConfirmation}
               onChange={(e) => handleChange(e, "passwordConfirmation")} />
