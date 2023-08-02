@@ -33,20 +33,49 @@ const UpdateQuantity  = () => {
     setInputs(values => ({...values, [name]: value}))
 }
   
+// const handleSubmit = async (event) => {
+//     event.preventDefault();
+//     try {
+//       // const response = await axios.put(`http://localhost:80/material-minder/api/supply/${id}/quantity`,
+//       const response = await axios.put(`https://material-minder.000webhostapp.com/api/supply/${id}/quantity`,
+//         {
+//              ...inputs,
+//         total_purchased: parseInt(inputs.purchased) || 0,
+//         total_used: parseInt(inputs.used) || 0
+
+//         }
+//       )
+//       console.log(response.data)
+//       navigate('/list')
+//     } catch (error) {
+//       console.error(error);
+//       throw new Error('Failed to edit the supply product');
+//     }
+//   }
+
+
 const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // const response = await axios.put(`http://localhost:80/material-minder/api/supply/${id}/quantity`,
-      const response = await axios.put(`https://material-minder.000webhostapp.com/api/supply/${id}/quantity`,
-        {
+      const response = await fetch(`https://material-minder.000webhostapp.com/api/supply/${id}/quantity`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
              ...inputs,
-        total_purchased: parseInt(inputs.purchased) || 0,
-        total_used: parseInt(inputs.used) || 0
+             total_purchased: parseInt(inputs.purchased) || 0,
+             total_used: parseInt(inputs.used) || 0
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('HTTP status ' + response.status);
+      }
 
-        }
-      )
-      console.log(response.data)
-      navigate('/list')
+      const data = await response.json();
+      console.log(data);
+      navigate('/list');
     } catch (error) {
       console.error(error);
       throw new Error('Failed to edit the supply product');

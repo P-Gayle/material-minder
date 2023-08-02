@@ -41,14 +41,32 @@ const SuppliesList = () => {
     getSupplies()   
   }, [])
 
-  const deleteSupply = (id) => {
-    // axios.delete(`http://localhost:80/material-minder/api/supply/${id}/delete`)
-    axios.delete(`https://material-minder.000webhostapp.com/api/supply/${id}/delete`)
-      .then(function (response) {
-      console.log(response.data)
-      getSupplies()
-    })
+  // const deleteSupply = (id) => {
+  //   // axios.delete(`http://localhost:80/material-minder/api/supply/${id}/delete`)
+  //   axios.delete(`https://material-minder.000webhostapp.com/api/supply/${id}/delete`)
+  //     .then(function (response) {
+  //     console.log(response.data)
+  //     getSupplies()
+  //   })
+  // }
+
+const deleteSupply = async (id) => {
+  try {
+    const response = await fetch(`https://material-minder.000webhostapp.com/api/supply/${id}/delete`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP status ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+    getSupplies();
+  } catch (error) {
+    console.error('Error:', error);
   }
+}
 
   const handleSearch = () => {
     const searchValue = searchInputRef.current.value.toLowerCase();
