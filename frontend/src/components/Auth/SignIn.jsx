@@ -22,9 +22,16 @@ const SignIn = () => {
       // setError(loginStatus)
       setTimeout(() => { 
         localStorage.clear()
-        // TODO: reload page (temporarily disabled)
-        console.log("reload")
+        // reload() was causing issues on remote server.
+        // causing 404 error attempting to load /signin page.
+        // most likely caused because there is no signin.html page
+        // and no redirect to index.html at the server level (not sure
+        // if this is possible with 000webhost?)
+        //
         // window.location.reload()
+        
+        // for now I've added a navigate to '/signin'.
+        navigate('/signin')
       }, 1000) 
     }
     setTimeout(() => {
@@ -55,7 +62,9 @@ const SignIn = () => {
      event.preventDefault();
     if (name !== "" && password !== "") {
       // const url = "http://localhost/material-minder/api/signIn.php"
-      const url = "https://material-minder.000webhostapp.com/api/signIn.php"
+      // const url = "https://material-minder.000webhostapp.com/api/signIn.php"
+      // converted url to use relative link so will work on localhost and remote server
+      const url = "/api/signIn.php"
       const headers = {
         "Accept": "application/json",
         "Content-Type": "application/json"
