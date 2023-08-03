@@ -22,22 +22,24 @@ switch ($method) {
         $sql = "SELECT * FROM supplies";
         // explode splits the path at /
         $path= explode('/', $_SERVER['REQUEST_URI']); 
-     
+
         $supplies = ""; // set default $supplies to empty string.
-        // $path[4] is id
-        if (isset($path[4]) && is_numeric($path[4])){
+
+        // $path[3] is id
+        $id = $path[3];
+        if (isset($id) && is_numeric($id)){
             $sql .= " WHERE id = :id";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':id', $path[4]);
+            $stmt->bindParam(':id', $id);
             $stmt->execute();
             $supplies = $stmt->fetch(PDO::FETCH_ASSOC);
         } elseif (isset($_GET['userId'])) {
-        $userId = $_GET['userId'];
-        $sql .= " WHERE userId = :userId";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':userId', $userId);
-        $stmt->execute();
-        $supplies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $userId = $_GET['userId'];
+            $sql .= " WHERE userId = :userId";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            $supplies = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         echo json_encode($supplies);
         break;
