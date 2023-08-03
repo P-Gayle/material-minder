@@ -43,12 +43,13 @@ const SuppliesList = () => {
 
   const deleteSupply = (id) => {
     // axios.delete(`http://localhost:80/material-minder/api/supply/${id}/delete`)
-    axios.delete(`https://material-minder.000webhostapp.com/api/supply/${id}/delete`)
+    axios.delete(`https://material-minder.000webhostapp.com/api/supply/${id}/delete?operation=delete`)
       .then(function (response) {
       console.log(response.data)
       getSupplies()
     })
   }
+
 
   const handleSearch = () => {
     const searchValue = searchInputRef.current.value.toLowerCase();

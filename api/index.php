@@ -42,140 +42,277 @@ switch ($method) {
         break;
 
     case "POST":
-        if (isset($_FILES['image'])) {
-            $file = $_FILES['image'];
-            $fileName = $file['name'];
-            $fileTmpName = $file['tmp_name'];
-            $fileSize = $file['size'];
-            $fileError = $file['error'];
-            $fileType = $file['type'];
+      
+        //to handle the PUT and DELETE requests that were changed to POST
+        
+        $operation = $_GET['operation'] ?? '';
 
-            $fileExt = explode('.', $fileName);
-            $fileActualExt = strtolower(end($fileExt));
+        switch ($operation) {
+            case 'edit':
+                $item = json_decode(file_get_contents('php://input'));
+                $sql = "UPDATE supplies SET name=:name, price=:price, size=:size, type=:type, location=:location, colour=:colour, supplier=:supplier, notes=:notes, updated_at=:updated_at WHERE id = :id";
+                $stmt = $conn->prepare($sql);
+                $updated_at = date('Y-m-d');
 
-            $allowed = array('jpg', 'jpeg', 'png');
+                $stmt->bindParam(':id', $item->id);
+                $stmt->bindParam(':name', $item->name);
+                $stmt->bindParam(':price', $item->price);
+                $stmt->bindParam(':size', $item->size);
+                $stmt->bindParam(':type', $item->type);
+                $stmt->bindParam(':location', $item->location);
+                $stmt->bindParam(':colour', $item->colour);
+                $stmt->bindParam(':supplier', $item->supplier);
+                $stmt->bindParam(':notes', $item->notes);
+                $stmt->bindParam(':updated_at', $updated_at);
 
-            if (in_array($fileActualExt, $allowed)) {
-                if ($fileError === 0) {
-                    if ($fileSize < 5000000) { // 5 MB
-                        $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                        $fileDestination = 'uploads/' . $fileNameNew;
-                        move_uploaded_file($fileTmpName, $fileDestination);
+                if ($stmt->execute()) {
+                    $response = ['status' => 1, 'message' => 'Record updated successfully'];
+                } else {
+                    $response = ['status' => 0, 'message' => 'Failed to update record'];
+                }
+                echo json_encode($response);
+                break;
+
+            case 'quantity':
+                $item = json_decode(file_get_contents('php://input'));
+                $sql = "UPDATE supplies SET total_purchased = total_purchased + :purchased, total_used = total_used + :used WHERE id = :id";
+                $stmt = $conn->prepare($sql);
+
+                $stmt->bindParam(':id', $item->id);
+                $stmt->bindParam(':purchased', $item->total_purchased);
+                $stmt->bindParam(':used', $item->total_used);
+
+                if ($stmt->execute()) {
+                    $response = ['status' => 1, 'message' => 'Quantity updated successfully'];
+                } else {
+                    $response = ['status' => 0, 'message' => 'Failed to update quantity'];
+                }
+                echo json_encode($response);
+                break;
+
+            case 'delete':
+                $sql = "DELETE FROM supplies WHERE id = :id";
+                $path = explode('/', $_SERVER['REQUEST_URI']);
+
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':id', $path[4]);
+
+                if ($stmt->execute()) {
+                    $response = ['status' => 1, 'message' => 'Record deleted successfully'];
+                } else {
+                    $response = ['status' => 0, 'message' => 'Failed to delete record'];
+                }
+                echo json_encode($response);
+                break;
+
+            default:
+                // Existing "POST" code 
+                if (isset($_FILES['image'])) {
+                    $file = $_FILES['image'];
+                    $fileName = $file['name'];
+                    $fileTmpName = $file['tmp_name'];
+                    $fileSize = $file['size'];
+                    $fileError = $file['error'];
+                    $fileType = $file['type'];
+
+                    $fileExt = explode('.', $fileName);
+                    $fileActualExt = strtolower(end($fileExt));
+
+                    $allowed = array('jpg', 'jpeg', 'png');
+
+                    if (in_array($fileActualExt, $allowed)) {
+                        if ($fileError === 0) {
+                            if ($fileSize < 5000000) { // 5 MB
+                                $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                                $fileDestination = 'uploads/' . $fileNameNew;
+                                move_uploaded_file($fileTmpName, $fileDestination);
+                            } else {
+                                // echo "Your file is too big!";
+                                $response = ['status' => 0, 'message' => 'Your file is too big!'];
+                                echo json_encode($response);
+                                exit();
+                            }
+                        } else {
+                            // echo "There was an error uploading your file!";
+                            $response = ['status' => 0, 'message' => 'There was an error uploading your file!'];
+                            echo json_encode($response);
+                            exit();
+                        }
                     } else {
-                        // echo "Your file is too big!";
-                        $response = ['status' => 0, 'message' => 'Your file is too big!'];
+                        // echo "You cannot upload files of this type!";
+                        $response = ['status' => 0, 'message' => 'You cannot upload files of this type!'];
                         echo json_encode($response);
                         exit();
                     }
-                } else {
-                    // echo "There was an error uploading your file!";
-                    $response = ['status' => 0, 'message' => 'There was an error uploading your file!'];
-                    echo json_encode($response);
-                    exit();
                 }
-            } else {
-                // echo "You cannot upload files of this type!";
-                $response = ['status' => 0, 'message' => 'You cannot upload files of this type!'];
+
+                $sql =
+                    "INSERT INTO supplies(id, userId, name, price, size, type, location, colour, supplier, total_purchased, created_at, image, notes)
+                    VALUES(null, :userId, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at, :image, :notes)";
+                $stmt = $conn->prepare($sql);
+                $created_at = date('Y-m-d');
+
+                $stmt->bindParam(':userId', $_POST['userId']);
+                $stmt->bindParam(':name', $_POST['name']);
+                $stmt->bindParam(':price', $_POST['price']);
+                $stmt->bindParam(':size', $_POST['size']);
+                $stmt->bindParam(':type', $_POST['type']);
+                $stmt->bindParam(':location', $_POST['location']);
+                $stmt->bindParam(':colour', $_POST['colour']);
+                $stmt->bindParam(':supplier', $_POST['supplier']);
+                $stmt->bindParam(':total_purchased', $_POST['total_purchased']);
+                $stmt->bindParam(':created_at', $created_at);
+                $stmt->bindParam(':image', $fileDestination);
+                $stmt->bindParam(':notes', $_POST['notes']);
+
+                if ($stmt->execute()) {
+                    $response = ['status' => 1, 'message' => 'Record created successfully'];
+                } else {
+                    $response = ['status' => 0, 'message' => 'Failed to create record'];
+                }
                 echo json_encode($response);
-                exit();
-            }
+
+                break;
         }
+        break;  
 
-        $sql =
-        "INSERT INTO supplies(id, userId, name, price, size, type, location, colour, supplier, total_purchased, created_at, image, notes)
-        VALUES(null, :userId, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at, :image, :notes)";
-        $stmt = $conn->prepare($sql);
-        $created_at = date('Y-m-d');
+    
+    //------------original code-----------------
+        // case "POST":
+    //     if (isset($_FILES['image'])) {
+    //         $file = $_FILES['image'];
+    //         $fileName = $file['name'];
+    //         $fileTmpName = $file['tmp_name'];
+    //         $fileSize = $file['size'];
+    //         $fileError = $file['error'];
+    //         $fileType = $file['type'];
 
-        $stmt->bindParam(':userId', $_POST['userId']);
-        $stmt->bindParam(':name', $_POST['name']);
-        $stmt->bindParam(':price', $_POST['price']);
-        $stmt->bindParam(':size', $_POST['size']);
-        $stmt->bindParam(':type', $_POST['type']);
-        $stmt->bindParam(':location', $_POST['location']);
-        $stmt->bindParam(':colour', $_POST['colour']);
-        $stmt->bindParam(':supplier', $_POST['supplier']);
-        $stmt->bindParam(':total_purchased', $_POST['total_purchased']);
-        $stmt->bindParam(':created_at', $created_at);
-        $stmt->bindParam(':image', $fileDestination);
-        $stmt->bindParam(':notes', $_POST['notes']);
+    //         $fileExt = explode('.', $fileName);
+    //         $fileActualExt = strtolower(end($fileExt));
 
-        if($stmt->execute()){
-            $response = ['status' => 1, 'message' => 'Record created successfully'];
-        } else {
-            $response = ['status' => 0, 'message' => 'Failed to create record'];
-        }
-        echo json_encode($response);
-        break;
+    //         $allowed = array('jpg', 'jpeg', 'png');
 
-    case "PUT":
-        $item = json_decode(file_get_contents('php://input'));
-        $sql =
-        "UPDATE supplies SET name=:name, price=:price, size=:size, type=:type, location=:location, colour=:colour, supplier=:supplier, notes=:notes, updated_at=:updated_at WHERE id = :id";
-        $stmt = $conn->prepare($sql);
-        $updated_at = date('Y-m-d');
+    //         if (in_array($fileActualExt, $allowed)) {
+    //             if ($fileError === 0) {
+    //                 if ($fileSize < 5000000) { // 5 MB
+    //                     $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+    //                     $fileDestination = 'uploads/' . $fileNameNew;
+    //                     move_uploaded_file($fileTmpName, $fileDestination);
+    //                 } else {
+    //                     // echo "Your file is too big!";
+    //                     $response = ['status' => 0, 'message' => 'Your file is too big!'];
+    //                     echo json_encode($response);
+    //                     exit();
+    //                 }
+    //             } else {
+    //                 // echo "There was an error uploading your file!";
+    //                 $response = ['status' => 0, 'message' => 'There was an error uploading your file!'];
+    //                 echo json_encode($response);
+    //                 exit();
+    //             }
+    //         } else {
+    //             // echo "You cannot upload files of this type!";
+    //             $response = ['status' => 0, 'message' => 'You cannot upload files of this type!'];
+    //             echo json_encode($response);
+    //             exit();
+    //         }
+    //     }
 
-        $stmt->bindParam(':id', $item->id);
-        $stmt->bindParam(':name', $item->name);
-        $stmt->bindParam(':price', $item->price);
-        $stmt->bindParam(':size', $item->size);
-        $stmt->bindParam(':type', $item->type);
-        $stmt->bindParam(':location', $item->location);
-        $stmt->bindParam(':colour', $item->colour);
-        $stmt->bindParam(':supplier', $item->supplier);
-        $stmt->bindParam(':notes', $item->notes);
-        $stmt->bindParam(':updated_at', $updated_at);
+    //     $sql =
+    //     "INSERT INTO supplies(id, userId, name, price, size, type, location, colour, supplier, total_purchased, created_at, image, notes)
+    //     VALUES(null, :userId, :name, :price, :size, :type, :location, :colour, :supplier, :total_purchased, :created_at, :image, :notes)";
+    //     $stmt = $conn->prepare($sql);
+    //     $created_at = date('Y-m-d');
 
-        if ($stmt->execute()) {
-            $response = ['status' => 1, 'message' => 'Record updated successfully'];
-        } else {
-            $response = ['status' => 0, 'message' => 'Failed to update record'];
-        }
+    //     $stmt->bindParam(':userId', $_POST['userId']);
+    //     $stmt->bindParam(':name', $_POST['name']);
+    //     $stmt->bindParam(':price', $_POST['price']);
+    //     $stmt->bindParam(':size', $_POST['size']);
+    //     $stmt->bindParam(':type', $_POST['type']);
+    //     $stmt->bindParam(':location', $_POST['location']);
+    //     $stmt->bindParam(':colour', $_POST['colour']);
+    //     $stmt->bindParam(':supplier', $_POST['supplier']);
+    //     $stmt->bindParam(':total_purchased', $_POST['total_purchased']);
+    //     $stmt->bindParam(':created_at', $created_at);
+    //     $stmt->bindParam(':image', $fileDestination);
+    //     $stmt->bindParam(':notes', $_POST['notes']);
 
-        // Accumulate the total_purchased and total_used fields
-        if ($response['status'] == 1 && isset($item->total_purchased) && isset($item->total_used)) {
-            $selectSql = "SELECT total_purchased, total_used FROM supplies WHERE id = :id";
-            $selectStmt = $conn->prepare($selectSql);
-            $selectStmt->bindParam(':id', $item->id);
-            $selectStmt->execute();
-            $supplyData = $selectStmt->fetch(PDO::FETCH_ASSOC);
+    //     if($stmt->execute()){
+    //         $response = ['status' => 1, 'message' => 'Record created successfully'];
+    //     } else {
+    //         $response = ['status' => 0, 'message' => 'Failed to create record'];
+    //     }
+    //     echo json_encode($response);
+    //     break;
 
-            $totalPurchased = $supplyData['total_purchased'];
-            $totalUsed = $supplyData['total_used'];
+    // case "PUT":
+    //     $item = json_decode(file_get_contents('php://input'));
+    //     $sql =
+    //     "UPDATE supplies SET name=:name, price=:price, size=:size, type=:type, location=:location, colour=:colour, supplier=:supplier, notes=:notes, updated_at=:updated_at WHERE id = :id";
+    //     $stmt = $conn->prepare($sql);
+    //     $updated_at = date('Y-m-d');
 
-            $totalPurchased += $item->total_purchased;
-            $totalUsed += $item->total_used;
+    //     $stmt->bindParam(':id', $item->id);
+    //     $stmt->bindParam(':name', $item->name);
+    //     $stmt->bindParam(':price', $item->price);
+    //     $stmt->bindParam(':size', $item->size);
+    //     $stmt->bindParam(':type', $item->type);
+    //     $stmt->bindParam(':location', $item->location);
+    //     $stmt->bindParam(':colour', $item->colour);
+    //     $stmt->bindParam(':supplier', $item->supplier);
+    //     $stmt->bindParam(':notes', $item->notes);
+    //     $stmt->bindParam(':updated_at', $updated_at);
 
-            $updateAccumulatedSql = "UPDATE supplies SET total_purchased = :total_purchased, total_used = :total_used WHERE id = :id";
-            $updateAccumulatedStmt = $conn->prepare($updateAccumulatedSql);
-            $updateAccumulatedStmt->bindParam(':total_purchased', $totalPurchased);
-            $updateAccumulatedStmt->bindParam(':total_used', $totalUsed);
-            $updateAccumulatedStmt->bindParam(':id', $item->id);
+    //     if ($stmt->execute()) {
+    //         $response = ['status' => 1, 'message' => 'Record updated successfully'];
+    //     } else {
+    //         $response = ['status' => 0, 'message' => 'Failed to update record'];
+    //     }
 
-            if ($updateAccumulatedStmt->execute()) {
-                $response = ['status' => 1, 'message' => 'Record updated successfully'];
-            } else {
-                $response = ['status' => 0, 'message' => 'Failed to update record'];
-            }
-        }
+    //     // Accumulate the total_purchased and total_used fields
+    //     if ($response['status'] == 1 && isset($item->total_purchased) && isset($item->total_used)) {
+    //         $selectSql = "SELECT total_purchased, total_used FROM supplies WHERE id = :id";
+    //         $selectStmt = $conn->prepare($selectSql);
+    //         $selectStmt->bindParam(':id', $item->id);
+    //         $selectStmt->execute();
+    //         $supplyData = $selectStmt->fetch(PDO::FETCH_ASSOC);
 
-        echo json_encode($response);
-        break;
+    //         $totalPurchased = $supplyData['total_purchased'];
+    //         $totalUsed = $supplyData['total_used'];
 
-        case "DELETE":
-        $sql = "DELETE FROM supplies WHERE id = :id";
-        $path = explode('/', $_SERVER['REQUEST_URI']);
+    //         $totalPurchased += $item->total_purchased;
+    //         $totalUsed += $item->total_used;
+
+    //         $updateAccumulatedSql = "UPDATE supplies SET total_purchased = :total_purchased, total_used = :total_used WHERE id = :id";
+    //         $updateAccumulatedStmt = $conn->prepare($updateAccumulatedSql);
+    //         $updateAccumulatedStmt->bindParam(':total_purchased', $totalPurchased);
+    //         $updateAccumulatedStmt->bindParam(':total_used', $totalUsed);
+    //         $updateAccumulatedStmt->bindParam(':id', $item->id);
+
+    //         if ($updateAccumulatedStmt->execute()) {
+    //             $response = ['status' => 1, 'message' => 'Record updated successfully'];
+    //         } else {
+    //             $response = ['status' => 0, 'message' => 'Failed to update record'];
+    //         }
+    //     }
+
+    //     echo json_encode($response);
+    //     break;
+
+    //     case "DELETE":
+    //     $sql = "DELETE FROM supplies WHERE id = :id";
+    //     $path = explode('/', $_SERVER['REQUEST_URI']);
        
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':id', $path[4]);
+    //         $stmt = $conn->prepare($sql);
+    //         $stmt->bindParam(':id', $path[4]);
 
-    if ($stmt->execute()) {
-            $response = ['status' => 1, 'message' => 'Record deleted successfully'];
-        } else {
-            $response = ['status' => 0, 'message' => 'Failed to delete record'];
-        }
-        echo json_encode($response);
-        break;
+    // if ($stmt->execute()) {
+    //         $response = ['status' => 1, 'message' => 'Record deleted successfully'];
+    //     } else {
+    //         $response = ['status' => 0, 'message' => 'Failed to delete record'];
+    //     }
+    //     echo json_encode($response);
+    //     break;
 
     
    }

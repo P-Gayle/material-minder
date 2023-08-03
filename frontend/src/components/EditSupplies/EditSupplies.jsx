@@ -38,7 +38,7 @@ function EditSupplies() {
     event.preventDefault();
     try {
       // const response = await axios.put(`http://localhost:80/material-minder/api/supply/${id}/edit`,
-      const response = await axios.put(`https://material-minder.000webhostapp.com/api/supply/${id}/edit`,
+      const response = await axios.post(`https://material-minder.000webhostapp.com/api/supply/${id}/edit?operation=edit`,
         {
           id: inputs.id,
           name: inputs.name,
@@ -58,6 +58,43 @@ function EditSupplies() {
       throw new Error('Failed to edit the supply product');
     }
   }
+
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await fetch(`https://material-minder.000webhostapp.com/api/supply/${id}/edit`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         id: inputs.id,
+  //         name: inputs.name,
+  //         price: inputs.price,
+  //         size: inputs.size,
+  //         type: inputs.type,
+  //         colour: inputs.colour,
+  //         location: inputs.location,
+  //         supplier: inputs.supplier,
+  //         notes: inputs.notes
+  //       }),
+  //     });
+      
+  //     if (!response.ok) {
+  //       throw new Error('HTTP status ' + response.status);
+  //     }
+
+  //     const data = await response.json();
+  //     console.log(data);
+  //     navigate(-1);
+  //   } catch (error) {
+  //     console.error(error);
+  //     throw new Error('Failed to edit the supply product');
+  //   }
+  // }
+
+
 
   return (
     <div>
