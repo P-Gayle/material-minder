@@ -12,7 +12,9 @@ const SupplyDetails = () => {
     const fetchSupply = async () => {
       try {
         // const response = await axios.get(`http://localhost:80/material-minder/api/supply/${id}/details`)
-        const response = await axios.get(`https://material-minder.000webhostapp.com/api/supply/${id}/details`)
+        // const response = await axios.get(`https://material-minder.000webhostapp.com/api/supply/${id}/details`)
+        // converted url to use relative link so will work on localhost and remote server
+        const response = await axios.get(`/api/supply/${id}/details`)
         // console.log(response.data)
         setSupply(response.data);
       } catch (error) {
