@@ -23,6 +23,7 @@ switch ($method) {
         // explode splits the path at /
         $path= explode('/', $_SERVER['REQUEST_URI']); 
      
+        $supplies = ""; // set default $supplies to empty string.
         // $path[4] is id
         if (isset($path[4]) && is_numeric($path[4])){
             $sql .= " WHERE id = :id";
@@ -74,11 +75,16 @@ switch ($method) {
                 break;
 
             case 'quantity':
+                
+                // request uri is of form '/api/supply/${id}/quantity?operation=quantity'
+                // extract the id from the url
+                $path = explode('/', $_SERVER['REQUEST_URI']);
+                $id = $path[3];
                 $item = json_decode(file_get_contents('php://input'));
                 $sql = "UPDATE supplies SET total_purchased = total_purchased + :purchased, total_used = total_used + :used WHERE id = :id";
                 $stmt = $conn->prepare($sql);
 
-                $stmt->bindParam(':id', $item->id);
+                $stmt->bindParam(':id', $id);
                 $stmt->bindParam(':purchased', $item->total_purchased);
                 $stmt->bindParam(':used', $item->total_used);
 
