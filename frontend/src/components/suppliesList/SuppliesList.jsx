@@ -26,8 +26,7 @@ const SuppliesList = () => {
     }
 
   const getSupplies = async () => {
-    // const response = await axios.get(`http://localhost:80/material-minder/api/supplies/?userId=${userId}`)
-    const response = await axios.get(`https://material-minder.000webhostapp.com/api/supplies/?userId=${userId}`)
+    const response = await axios.get(`/api/supplies/?userId=${userId}`)
     try {
         console.log(response.data);
         setSupplies(response.data);
@@ -42,8 +41,7 @@ const SuppliesList = () => {
   }, [])
 
   const deleteSupply = (id) => {
-    // axios.delete(`http://localhost:80/material-minder/api/supply/${id}/delete`)
-    axios.delete(`https://material-minder.000webhostapp.com/api/supply/${id}/delete?operation=delete`)
+    axios.post(`/api/supply/${id}/delete?operation=delete`)
       .then(function (response) {
       console.log(response.data)
       getSupplies()
@@ -121,7 +119,7 @@ const SuppliesList = () => {
               <tr key={key} style ={{color:highlightText(supply)}}>
                 <td>{supply.id}</td>
                 {supply.image ?
-                  (<td><img src={`https://material-minder.000webhostapp.com/api/${supply.image}`} alt="item image" style={{ width: '50px' }} /></td>) : (<td>No image</td>)}
+                  (<td><img src={`/api/${supply.image}`} alt="item image" style={{ width: '50px' }} /></td>) : (<td>No image</td>)}
                 <td>{supply.name}</td>
                 <td>{supply.price}</td>
                 <td>{supply.size}</td>

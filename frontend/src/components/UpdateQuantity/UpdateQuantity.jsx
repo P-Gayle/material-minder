@@ -15,8 +15,7 @@ const UpdateQuantity  = () => {
   useEffect(() => {
     const fetchSupply = async () => {
       try {
-        // const response = await axios.get(`http://localhost:80/material-minder/api/supply/${id}`)
-        const response = await axios.get(`https://material-minder.000webhostapp.com/api/supply/${id}`)
+        const response = await axios.get(`/api/supply/${id}`)
         // console.log(response.data)
         setInputs(response.data);
       } catch (error) {
@@ -36,16 +35,12 @@ const UpdateQuantity  = () => {
 const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // const response = await axios.put(`http://localhost:80/material-minder/api/supply/${id}/quantity`,
-      // const response = await axios.post(`https://material-minder.000webhostapp.com/api/supply/${id}/quantity?operation=quantity`,
       const data = 
         {
              ...inputs,
         total_purchased: parseInt(inputs.purchased) || 0,
         total_used: parseInt(inputs.used) || 0,
         };
-      console.log('handleSubmit [data]:', data)
-      // converted url to use relative link so will work on localhost and remote server
       const response = await axios.post(`/api/supply/${id}/quantity?operation=quantity`, data)
       console.log('handleSubmit: [response]:', response.data)
       navigate('/list')

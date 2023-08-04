@@ -16,8 +16,7 @@ function EditSupplies() {
   useEffect(() => {
     const fetchSupply = async () => {
       try {
-        // const response = await axios.get(`http://localhost:80/material-minder/api/supply/${id}`)
-        const response = await axios.get(`https://material-minder.000webhostapp.com/api/supply/${id}`)
+        const response = await axios.get(`/api/supply/${id}`)
         console.log(response.data)
         setInputs(response.data);
       } catch (error) {
@@ -37,8 +36,7 @@ function EditSupplies() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // const response = await axios.put(`http://localhost:80/material-minder/api/supply/${id}/edit`,
-      const response = await axios.post(`https://material-minder.000webhostapp.com/api/supply/${id}/edit?operation=edit`,
+      const response = await axios.post(`/api/supply/${id}/edit?operation=edit`,
         {
           id: inputs.id,
           name: inputs.name,

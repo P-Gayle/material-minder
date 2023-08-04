@@ -103,7 +103,7 @@ switch ($method) {
                 $path = explode('/', $_SERVER['REQUEST_URI']);
 
                 $stmt = $conn->prepare($sql);
-                $stmt->bindParam(':id', $path[4]);
+                $stmt->bindParam(':id', $path[3]);
 
                 if ($stmt->execute()) {
                     $response = ['status' => 1, 'message' => 'Record deleted successfully'];

@@ -24,9 +24,6 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (name !== "" && password !== "" && passwordConfirmation !== "") {
-      //  const url = "http://localhost/Material-Minder/api/signUp.php";
-      // const url = "https://material-minder.000webhostapp.com/api/signUp.php";
-      // converted url to use relative link so will work on localhost and remote server
       const url = "/api/signUp.php";
 
       
@@ -68,9 +65,6 @@ const SignUp = () => {
   }
   
   const checkUser = async () => {
-    // const url = "http://localhost/Material-Minder/api/checkUser.php";
-    // const url = "https://material-minder.000webhostapp.com/api/checkUser.php";
-    // converted url to use relative link so will work on localhost and remote server
     const url = "/api/checkUser.php";
 
     const headers = {
