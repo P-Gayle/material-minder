@@ -2,7 +2,7 @@
 
 ## A CRUD web app to help dressmakers and tailors keep track of their fabric and trims inventory
 
-Deployed site link coming soon!
+## Live site: https://material-minder.000webhostapp.com/
 
 ### Technology
 - React
