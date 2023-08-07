@@ -10,14 +10,21 @@ import NavBar from './components/navbar/NavBar'
 import Home from './components/home/Home'
 import Protected from './components/Auth/Protected'
 import './App.css'
+import { useState, useEffect } from 'react'
 
 function App() {
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  useEffect(() => { 
+    const loginStatus = localStorage.getItem("login")
+    setIsLoggedIn(loginStatus !== null && loginStatus !== "")
+  }, [])
 
   return (
     <>
       <div className='app'>
         <BrowserRouter>
-        <NavBar/>
+        <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/list" element={<Protected Component={SuppliesList} />} />
@@ -26,7 +33,7 @@ function App() {
             <Route path="/supply/:id/quantity" element={<UpdateQuantity />} />
             <Route path="/supply/:id/details" element={<SupplyDetails />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signin" element={<SignIn setIsLoggedIn={setIsLoggedIn} />} />
           </Routes>
         </BrowserRouter>      
       </div>
