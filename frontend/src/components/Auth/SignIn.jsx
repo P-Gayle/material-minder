@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './auth.css'
 
-const SignIn = () => {
+const SignIn = ({ setIsLoggedIn }) => {
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -86,6 +86,7 @@ const SignIn = () => {
             setTimeout(function(){
               localStorage.setItem("login", true)
               localStorage.setItem('userId', response[0].result.userId) 
+              setIsLoggedIn(true)
               navigate('/list')
             }, 1500)
           }
