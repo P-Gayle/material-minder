@@ -2,6 +2,8 @@
 
 ## A CRUD web app to help dressmakers and tailors keep track of their fabric and trims inventory
 
+## Live site: https://material-minder.000webhostapp.com/
+
 ### Technology
 - React
 - React Bootstrap
