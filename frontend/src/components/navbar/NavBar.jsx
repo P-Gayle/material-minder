@@ -2,14 +2,14 @@ import './NavBar.css'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-const NavBar = () => {
+const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate()
 
   //for hiding logout button when not logged in and sign in and sign up when logged in
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  // const [isLoggedIn, setIsLoggedIn] = useState(false)
   useEffect(() => { 
     const loginStatus = localStorage.getItem("login")
-    setIsLoggedIn(loginStatus !== "")
+    setIsLoggedIn(loginStatus !== null && loginStatus !== "")
   }, [])
 
 
