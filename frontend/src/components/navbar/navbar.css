@@ -1,3 +1,4 @@
+
 nav ul {
     display: flex;
     justify-content: center;
@@ -26,4 +27,48 @@ nav {
     background: rgba(255, 255, 255, 0.5);
     z-index: 1;
 } 
+
+/* Hide the menu items by default on mobile */
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        background: rgba(255, 255, 255, 0.9);
+        z-index: 2;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Style for the hamburger icon */
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 3;
+        font-size: 3.5vh;
+       
+    }
+
+    /* When the menu is open, show the items */
+    .open-menu ul {
+        display: flex;
+    }
+}
+
+/* On larger screens, hide the hamburger and show the menu items */
+@media (min-width: 769px) {
+    .hamburger {
+        display: none;
+    }
+}
 
