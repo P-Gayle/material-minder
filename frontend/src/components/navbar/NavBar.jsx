@@ -1,5 +1,5 @@
 import './navbar.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
@@ -29,7 +29,7 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
            <div className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 ☰
           </div>
-          
+
               <ul>
                   <li>
                     <Link to="/">Home</Link>
