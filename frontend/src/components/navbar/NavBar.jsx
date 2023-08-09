@@ -32,19 +32,19 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
 
               <ul>
                   <li>
-                    <Link to="/">Home</Link>
+                    <Link to="/" onClick={() => setIsMenuOpen(false)} >Home</Link>
                 </li>
                 <li>
-                    <Link to="/list">Supplies List</Link>
+                    <Link to="/list" onClick={() => setIsMenuOpen(false)}>Supplies List</Link>
                 </li>
                 <li>
-                    <Link to="/add">Add Supplies</Link>
+                    <Link to="/add" onClick={() => setIsMenuOpen(false)}>Add Supplies</Link>
                 </li>
                 {!isLoggedIn && <li className='signin'>
-                    <Link to="/signin">Sign In</Link>
+                    <Link to="/signin" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
                 </li>}
                 {!isLoggedIn && <li className='signup'>
-                    <Link to="/signup">Sign Up</Link>
+                    <Link to="/signup" onClick={() => setIsMenuOpen(false)}>Sign Up</Link>
                 </li>}
                 {isLoggedIn && <li className='logout'
                     onClick={logout}>Sign Out</li>}
