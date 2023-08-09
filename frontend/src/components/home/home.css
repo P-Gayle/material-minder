@@ -32,4 +32,15 @@
     letter-spacing: 0.1vw;
     margin-top: 0;
 }
+
+@media screen and (max-width: 768px) {
+    .hero-text h1 {
+        font-size: 7vw;
+    }
+    .hero-text p {
+        font-size: 3vw;
+    }
+}
+    
+
  
