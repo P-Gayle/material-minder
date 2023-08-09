@@ -1,9 +1,10 @@
 import './navbar.css'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   //for hiding logout button when not logged in and sign in and sign up when logged in
   // const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -23,7 +24,12 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
     return (
     <div className='nav'>
     
-        <nav >
+        <nav className={isMenuOpen ? "open-menu" : ""}>
+
+           <div className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                ☰
+          </div>
+          
               <ul>
                   <li>
                     <Link to="/">Home</Link>
