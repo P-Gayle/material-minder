@@ -35,10 +35,11 @@
 
 @media screen and (max-width: 768px) {
     .hero-text h1 {
-        font-size: 5.5vw;
+        font-size: 7.5vw;
     }
     .hero-text p {
-        font-size: 3vw;
+        margin-top: 5px;
+        font-size: 3.5vw;
     }
 }
     
